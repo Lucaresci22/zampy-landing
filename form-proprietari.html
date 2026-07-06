@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zampoo — Form Proprietari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#FAF7F2;color:#1A1A18;min-height:100vh;}
+.header{background:#0D5C46;padding:24px 20px;text-align:center;}
+.logo{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:-1px;}
+.logo span{color:#F5A623;}
+.header-sub{font-size:14px;color:rgba(255,255,255,0.7);margin-top:4px;}
+.container{max-width:640px;margin:0 auto;padding:32px 20px 60px;}
+.hero{background:#fff;border-radius:16px;border:1px solid #E8E0D4;padding:28px;margin-bottom:24px;}
+.hero-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#1A1A18;letter-spacing:-0.5px;margin-bottom:8px;}
+.hero-title span{font-weight:400;font-style:italic;color:#0D5C46;}
+.hero-text{font-size:14px;color:#4A4A42;line-height:1.6;}
+.section{background:#fff;border-radius:16px;border:1px solid #E8E0D4;padding:24px;margin-bottom:16px;}
+.section-label{font-size:11px;font-weight:600;color:#0D5C46;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.section-label::after{content:'';flex:1;height:1px;background:#E8E0D4;}
+.question{margin-bottom:24px;}
+.question:last-child{margin-bottom:0;}
+.q-text{font-size:15px;font-weight:500;color:#1A1A18;margin-bottom:4px;line-height:1.4;}
+.q-hint{font-size:12px;color:#8A8A7E;margin-bottom:12px;}
+.options{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid #E8E0D4;border-radius:10px;cursor:pointer;transition:all .15s;background:#FAF7F2;}
+.opt:hover{border-color:#0D5C46;background:#E8F5F0;}
+.opt.selected{border-color:#0D5C46;background:#E8F5F0;}
+.opt input{width:16px;height:16px;accent-color:#0D5C46;flex-shrink:0;}
+.opt-text{font-size:14px;color:#1A1A18;}
+textarea{width:100%;padding:12px 14px;border:1.5px solid #E8E0D4;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1A1A18;background:#FAF7F2;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;}
+textarea:focus{border-color:#0D5C46;}
+textarea::placeholder{color:#B4B2A9;}
+.submit-btn{width:100%;background:#0D5C46;color:#fff;border:none;border-radius:12px;padding:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:background .15s;margin-top:8px;}
+.submit-btn:hover{background:#1A7A5E;}
+.submit-btn:disabled{background:#B4B2A9;cursor:not-allowed;}
+.success-box{display:none;background:#E8F5F0;border:1.5px solid #0D5C46;border-radius:16px;padding:32px;text-align:center;}
+.success-icon{font-size:48px;margin-bottom:16px;}
+.success-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#0D5C46;margin-bottom:8px;}
+.success-text{font-size:14px;color:#4A4A42;line-height:1.6;}
+.error-msg{color:#993C1D;font-size:13px;margin-top:8px;display:none;}
+.progress{background:#E8E0D4;border-radius:4px;height:4px;margin-bottom:24px;}
+.progress-bar{background:#0D5C46;height:4px;border-radius:4px;width:0%;transition:width .3s;}
+.footer{text-align:center;padding:20px;font-size:12px;color:#8A8A7E;}
+.footer a{color:#0D5C46;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">Zam<span>poo</span></div>
+  <div class="header-sub">Dog sitting on demand — Milano</div>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-title">Sei un proprietario <span>di cane?</span></div>
+    <div class="hero-text">Ciao! Stiamo costruendo Zampoo, un'app di dog sitting a Milano. Rispondi a queste 10 domande — ci vuole meno di 3 minuti e ci aiuta tantissimo a costruire il servizio giusto per te.</div>
+  </div>
+
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+  <form id="mainForm">
+
+    <div class="section">
+      <div class="section-label">La tua situazione</div>
+
+      <div class="question">
+        <div class="q-text">1. Quanti cani hai?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="1 cane"><span class="opt-text">1 cane</span></label>
+          <label class="opt"><input type="radio" name="q1" value="2 cani"><span class="opt-text">2 cani</span></label>
+          <label class="opt"><input type="radio" name="q1" value="3 o più"><span class="opt-text">3 o più</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">2. Con che frequenza hai bisogno di qualcuno che tenga il tuo cane?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="Ogni settimana"><span class="opt-text">Ogni settimana</span></label>
+          <label class="opt"><input type="radio" name="q2" value="Qualche volta al mese"><span class="opt-text">Qualche volta al mese</span></label>
+          <label class="opt"><input type="radio" name="q2" value="Solo per le vacanze"><span class="opt-text">Solo per le vacanze</span></label>
+          <label class="opt"><input type="radio" name="q2" value="Solo in caso di emergenza"><span class="opt-text">Solo in caso di emergenza</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">3. In quale zona di Milano vivi?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q3" value="Centro"><span class="opt-text">Centro</span></label>
+          <label class="opt"><input type="radio" name="q3" value="Nord (Isola, Garibaldi, Sempione, Bovisa)"><span class="opt-text">Nord — Isola, Garibaldi, Sempione, Bovisa</span></label>
+          <label class="opt"><input type="radio" name="q3" value="Est (Porta Venezia, Città Studi, Lambrate, Loreto)"><span class="opt-text">Est — Porta Venezia, Città Studi, Lambrate, Loreto</span></label>
+          <label class="opt"><input type="radio" name="q3" value="Sud (Navigli, Porta Romana, Bocconi, Lodi)"><span class="opt-text">Sud — Navigli, Porta Romana, Bocconi, Lodi</span></label>
+          <label class="opt"><input type="radio" name="q3" value="Ovest (Lorenteggio, Barona, Famagosta)"><span class="opt-text">Ovest — Lorenteggio, Barona, Famagosta</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Il problema attuale</div>
+
+      <div class="question">
+        <div class="q-text">4. Come trovi oggi un dog sitter?</div>
+        <div class="q-hint">Puoi selezionare più risposte</div>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="q4" value="Passaparola da amici o familiari"><span class="opt-text">Passaparola da amici / familiari</span></label>
+          <label class="opt"><input type="checkbox" name="q4" value="Gruppi Facebook o WhatsApp"><span class="opt-text">Gruppi Facebook o WhatsApp</span></label>
+          <label class="opt"><input type="checkbox" name="q4" value="Un'app o piattaforma (Rover, Pawshake...)"><span class="opt-text">Un'app o piattaforma (es. Rover, Pawshake)</span></label>
+          <label class="opt"><input type="checkbox" name="q4" value="Non ho un sitter — mi arrangio"><span class="opt-text">Non ho un sitter — mi arrangio</span></label>
+          <label class="opt"><input type="checkbox" name="q4" value="Lo lascio a familiari o vicini"><span class="opt-text">Lo lascio a familiari / vicini</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">5. Qual è il tuo problema principale nel trovare un sitter?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q5" value="Non so di chi fidarmi"><span class="opt-text">Non so di chi fidarmi</span></label>
+          <label class="opt"><input type="radio" name="q5" value="I prezzi non sono chiari"><span class="opt-text">I prezzi non sono chiari</span></label>
+          <label class="opt"><input type="radio" name="q5" value="Non trovo disponibilità quando serve"><span class="opt-text">Non trovo disponibilità quando serve</span></label>
+          <label class="opt"><input type="radio" name="q5" value="Il processo è troppo lento e complicato"><span class="opt-text">Il processo è troppo lento e complicato</span></label>
+          <label class="opt"><input type="radio" name="q5" value="Non ho nessun problema"><span class="opt-text">Non ho nessun problema</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">6. Ti è mai capitato di rinunciare a qualcosa per non trovare un sitter?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q6" value="Sì, spesso"><span class="opt-text">Sì, spesso</span></label>
+          <label class="opt"><input type="radio" name="q6" value="Sì, qualche volta"><span class="opt-text">Sì, qualche volta</span></label>
+          <label class="opt"><input type="radio" name="q6" value="Raramente"><span class="opt-text">Raramente</span></label>
+          <label class="opt"><input type="radio" name="q6" value="No, mai"><span class="opt-text">No, mai</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Cosa conta per te</div>
+
+      <div class="question">
+        <div class="q-text">7. Cosa è più importante per te quando scegli un sitter?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q7" value="Fiducia e identità verificata"><span class="opt-text">Fiducia e identità verificata</span></label>
+          <label class="opt"><input type="radio" name="q7" value="Prezzo chiaro e trasparente"><span class="opt-text">Prezzo chiaro e trasparente</span></label>
+          <label class="opt"><input type="radio" name="q7" value="Disponibilità immediata"><span class="opt-text">Disponibilità immediata</span></label>
+          <label class="opt"><input type="radio" name="q7" value="Recensioni di altri proprietari"><span class="opt-text">Recensioni di altri proprietari</span></label>
+          <label class="opt"><input type="radio" name="q7" value="Vicinanza a casa mia"><span class="opt-text">Vicinanza a casa mia</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">8. Quanto saresti disposto a pagare per ora?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q8" value="Meno di €10"><span class="opt-text">Meno di €10</span></label>
+          <label class="opt"><input type="radio" name="q8" value="€10 – €14"><span class="opt-text">€10 – €14</span></label>
+          <label class="opt"><input type="radio" name="q8" value="€15 – €20"><span class="opt-text">€15 – €20</span></label>
+          <label class="opt"><input type="radio" name="q8" value="Più di €20 se il sitter è davvero affidabile"><span class="opt-text">Più di €20 se il sitter è davvero affidabile</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">9. Quali funzioni ti farebbero scegliere Zampoo?</div>
+        <div class="q-hint">Puoi selezionare più risposte</div>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="q9" value="Profili verificati con documento"><span class="opt-text">Profili verificati con documento</span></label>
+          <label class="opt"><input type="checkbox" name="q9" value="GPS tracking in tempo reale"><span class="opt-text">GPS tracking in tempo reale</span></label>
+          <label class="opt"><input type="checkbox" name="q9" value="Prenotazione e pagamento in app"><span class="opt-text">Prenotazione e pagamento in app</span></label>
+          <label class="opt"><input type="checkbox" name="q9" value="Assicurazione inclusa"><span class="opt-text">Assicurazione inclusa</span></label>
+          <label class="opt"><input type="checkbox" name="q9" value="Disponibilità anche last minute"><span class="opt-text">Disponibilità anche last minute</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">10. C'è qualcosa che non ti convince di un servizio come Zampoo?</div>
+        <div class="q-hint">Facoltativa — scrivi liberamente</div>
+        <textarea name="q10" placeholder="Es. preferirei incontrare il sitter di persona prima..."></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Invia le risposte →</button>
+    <div class="error-msg" id="errorMsg">Qualcosa è andato storto. Riprova tra qualche secondo.</div>
+  </form>
+
+  <div class="success-box" id="successBox">
+    <div class="success-icon">🐾</div>
+    <div class="success-title">Grazie mille!</div>
+    <div class="success-text">Le tue risposte ci aiutano a costruire Zampoo meglio, ogni giorno. Ti terremo aggiornato sul lancio a Milano.</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <a href="https://zampoo.it">zampoo.it</a> · zampooapp@gmail.com
+</div>
+
+<script>
+const AT_TOKEN = 'patZMsKhZ2I4bVzkc.d412dc3bcfcfd3faaa631c33fee08765e5bea1d46d9a30fa5e7bbf409a5b4aa8';
+const AT_BASE = 'appEALY9tdwCVXbSC';
+const AT_TABLE = 'Interview Proprietari';
+
+document.querySelectorAll('.opt').forEach(opt => {
+  opt.querySelector('input').addEventListener('change', () => {
+    updateProgress();
+    if (opt.querySelector('input').type === 'radio') {
+      const name = opt.querySelector('input').name;
+      document.querySelectorAll(`input[name="${name}"]`).forEach(i => {
+        i.closest('.opt').classList.remove('selected');
+      });
+    }
+    opt.classList.toggle('selected', opt.querySelector('input').checked);
+  });
+});
+
+function updateProgress() {
+  const total = 9;
+  let answered = 0;
+  for (let i = 1; i <= 9; i++) {
+    const inputs = document.querySelectorAll(`[name="q${i}"]:checked`);
+    if (inputs.length > 0) answered++;
+  }
+  document.getElementById('progressBar').style.width = (answered / total * 100) + '%';
+}
+
+document.getElementById('mainForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Invio in corso...';
+
+  const getRadio = (name) => {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : '';
+  };
+  const getCheckboxes = (name) => {
+    return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value).join(', ');
+  };
+
+  const fields = {
+    'Q1 - Quanti cani': getRadio('q1'),
+    'Q2 - Frequenza bisogno': getRadio('q2'),
+    'Q3 - Zona Milano': getRadio('q3'),
+    'Q4 - Come trova sitter': getCheckboxes('q4'),
+    'Q5 - Problema principale': getRadio('q5'),
+    'Q6 - Rinunce per sitter': getRadio('q6'),
+    'Q7 - Cosa conta di più': getRadio('q7'),
+    'Q8 - Disponibilità prezzo': getRadio('q8'),
+    'Q9 - Funzioni desiderate': getCheckboxes('q9'),
+    'Q10 - Dubbi su Zampoo': document.querySelector('[name="q10"]').value,
+    'Data': new Date().toISOString().split('T')[0],
+  };
+
+  try {
+    const res = await fetch(`https://api.airtable.com/v0/${AT_BASE}/${encodeURIComponent(AT_TABLE)}`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${AT_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields })
+    });
+    if (!res.ok) throw new Error('API error');
+    document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('successBox').style.display = 'block';
+  } catch (err) {
+    document.getElementById('errorMsg').style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Invia le risposte →';
+  }
+});
+</script>
+</body>
+</html>

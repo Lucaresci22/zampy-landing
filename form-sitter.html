@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zampoo — Form Dog Sitter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#FAF7F2;color:#1A1A18;min-height:100vh;}
+.header{background:#1A1A18;padding:24px 20px;text-align:center;}
+.logo{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:-1px;}
+.logo span{color:#F5A623;}
+.header-sub{font-size:14px;color:rgba(255,255,255,0.6);margin-top:4px;}
+.container{max-width:640px;margin:0 auto;padding:32px 20px 60px;}
+.hero{background:#fff;border-radius:16px;border:1px solid #E8E0D4;padding:28px;margin-bottom:24px;}
+.hero-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#1A1A18;letter-spacing:-0.5px;margin-bottom:8px;}
+.hero-title span{font-weight:400;font-style:italic;color:#0D5C46;}
+.hero-text{font-size:14px;color:#4A4A42;line-height:1.6;}
+.section{background:#fff;border-radius:16px;border:1px solid #E8E0D4;padding:24px;margin-bottom:16px;}
+.section-label{font-size:11px;font-weight:600;color:#0D5C46;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.section-label::after{content:'';flex:1;height:1px;background:#E8E0D4;}
+.question{margin-bottom:24px;}
+.question:last-child{margin-bottom:0;}
+.q-text{font-size:15px;font-weight:500;color:#1A1A18;margin-bottom:4px;line-height:1.4;}
+.q-hint{font-size:12px;color:#8A8A7E;margin-bottom:12px;}
+.options{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid #E8E0D4;border-radius:10px;cursor:pointer;transition:all .15s;background:#FAF7F2;}
+.opt:hover{border-color:#F5A623;background:#FEF3E2;}
+.opt.selected{border-color:#F5A623;background:#FEF3E2;}
+.opt input{width:16px;height:16px;accent-color:#F5A623;flex-shrink:0;}
+.opt-text{font-size:14px;color:#1A1A18;}
+textarea{width:100%;padding:12px 14px;border:1.5px solid #E8E0D4;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1A1A18;background:#FAF7F2;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;}
+textarea:focus{border-color:#F5A623;}
+textarea::placeholder{color:#B4B2A9;}
+.submit-btn{width:100%;background:#F5A623;color:#0D5C46;border:none;border-radius:12px;padding:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:background .15s;margin-top:8px;}
+.submit-btn:hover{background:#EF9F27;}
+.submit-btn:disabled{background:#B4B2A9;color:#fff;cursor:not-allowed;}
+.success-box{display:none;background:#FEF3E2;border:1.5px solid #F5A623;border-radius:16px;padding:32px;text-align:center;}
+.success-icon{font-size:48px;margin-bottom:16px;}
+.success-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#854F0B;margin-bottom:8px;}
+.success-text{font-size:14px;color:#633806;line-height:1.6;}
+.error-msg{color:#993C1D;font-size:13px;margin-top:8px;display:none;}
+.progress{background:#E8E0D4;border-radius:4px;height:4px;margin-bottom:24px;}
+.progress-bar{background:#F5A623;height:4px;border-radius:4px;width:0%;transition:width .3s;}
+.footer{text-align:center;padding:20px;font-size:12px;color:#8A8A7E;}
+.footer a{color:#0D5C46;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">Zam<span>poo</span></div>
+  <div class="header-sub">Guadagna con i cani — Milano</div>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-title">Vuoi fare il <span>dog sitter?</span></div>
+    <div class="hero-text">Ciao! Stiamo costruendo Zampoo, un'app che connette dog sitter con proprietari di cani a Milano. Rispondi a queste 10 domande — ci vuole meno di 3 minuti e ci aiuta a costruire la piattaforma giusta per te.</div>
+  </div>
+
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+  <form id="mainForm">
+
+    <div class="section">
+      <div class="section-label">La tua situazione</div>
+
+      <div class="question">
+        <div class="q-text">1. Qual è la tua situazione attuale?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="Studente universitario"><span class="opt-text">Studente universitario</span></label>
+          <label class="opt"><input type="radio" name="q1" value="Lavoratore dipendente"><span class="opt-text">Lavoratore dipendente</span></label>
+          <label class="opt"><input type="radio" name="q1" value="Freelance / partita IVA"><span class="opt-text">Freelance / partita IVA</span></label>
+          <label class="opt"><input type="radio" name="q1" value="In cerca di lavoro"><span class="opt-text">In cerca di lavoro</span></label>
+          <label class="opt"><input type="radio" name="q1" value="Altro"><span class="opt-text">Altro</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">2. Hai già esperienza con i cani?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="Sì, ho un cane"><span class="opt-text">Sì, ho un cane</span></label>
+          <label class="opt"><input type="radio" name="q2" value="Sì, ho lavorato con i cani"><span class="opt-text">Sì, ho lavorato con i cani</span></label>
+          <label class="opt"><input type="radio" name="q2" value="Ho esperienza ma non professionale"><span class="opt-text">Ho esperienza ma non professionale</span></label>
+          <label class="opt"><input type="radio" name="q2" value="No, ma amo i cani"><span class="opt-text">No, ma amo i cani</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">3. In quale zona di Milano sei disponibile?</div>
+        <div class="q-hint">Puoi selezionare più risposte</div>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="q3" value="Centro"><span class="opt-text">Centro</span></label>
+          <label class="opt"><input type="checkbox" name="q3" value="Nord (Isola, Garibaldi, Sempione, Bovisa)"><span class="opt-text">Nord — Isola, Garibaldi, Sempione, Bovisa</span></label>
+          <label class="opt"><input type="checkbox" name="q3" value="Est (Porta Venezia, Città Studi, Lambrate, Loreto)"><span class="opt-text">Est — Porta Venezia, Città Studi, Lambrate, Loreto</span></label>
+          <label class="opt"><input type="checkbox" name="q3" value="Sud (Navigli, Porta Romana, Bocconi, Lodi)"><span class="opt-text">Sud — Navigli, Porta Romana, Bocconi, Lodi</span></label>
+          <label class="opt"><input type="checkbox" name="q3" value="Ovest (Lorenteggio, Barona, Famagosta)"><span class="opt-text">Ovest — Lorenteggio, Barona, Famagosta</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">La tua disponibilità</div>
+
+      <div class="question">
+        <div class="q-text">4. Quante ore a settimana vorresti dedicare al dog sitting?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q4" value="Meno di 5 ore"><span class="opt-text">Meno di 5 ore</span></label>
+          <label class="opt"><input type="radio" name="q4" value="5 – 10 ore"><span class="opt-text">5 – 10 ore</span></label>
+          <label class="opt"><input type="radio" name="q4" value="10 – 20 ore"><span class="opt-text">10 – 20 ore</span></label>
+          <label class="opt"><input type="radio" name="q4" value="Più di 20 ore"><span class="opt-text">Più di 20 ore</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">5. Quando saresti disponibile?</div>
+        <div class="q-hint">Puoi selezionare più risposte</div>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="q5" value="Mattina (7:00 – 12:00)"><span class="opt-text">Mattina (7:00 – 12:00)</span></label>
+          <label class="opt"><input type="checkbox" name="q5" value="Pomeriggio (12:00 – 18:00)"><span class="opt-text">Pomeriggio (12:00 – 18:00)</span></label>
+          <label class="opt"><input type="checkbox" name="q5" value="Sera (18:00 – 22:00)"><span class="opt-text">Sera (18:00 – 22:00)</span></label>
+          <label class="opt"><input type="checkbox" name="q5" value="Weekend"><span class="opt-text">Weekend</span></label>
+          <label class="opt"><input type="checkbox" name="q5" value="Disponibile per notti o vacanze"><span class="opt-text">Disponibile per notti o vacanze</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">6. Che tipo di servizio vorresti offrire?</div>
+        <div class="q-hint">Puoi selezionare più risposte</div>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="q6" value="Passeggiate"><span class="opt-text">Passeggiate</span></label>
+          <label class="opt"><input type="checkbox" name="q6" value="Dog sitting ore singole"><span class="opt-text">Dog sitting ore singole</span></label>
+          <label class="opt"><input type="checkbox" name="q6" value="Accudimento a giornata intera"><span class="opt-text">Accudimento a giornata intera</span></label>
+          <label class="opt"><input type="checkbox" name="q6" value="Ospitare il cane a casa mia (overnight)"><span class="opt-text">Ospitare il cane a casa mia (overnight)</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Motivazioni e aspettative</div>
+
+      <div class="question">
+        <div class="q-text">7. Qual è la tua motivazione principale?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q7" value="Guadagnare qualcosa in più"><span class="opt-text">Guadagnare qualcosa in più</span></label>
+          <label class="opt"><input type="radio" name="q7" value="Stare con i cani — amo gli animali"><span class="opt-text">Stare con i cani — amo gli animali</span></label>
+          <label class="opt"><input type="radio" name="q7" value="Farne un lavoro principale"><span class="opt-text">Farne un lavoro principale</span></label>
+          <label class="opt"><input type="radio" name="q7" value="Cerco un'attività flessibile"><span class="opt-text">Cerco un'attività flessibile</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">8. Quanto vorresti guadagnare per ora?</div>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q8" value="€8 – €10"><span class="opt-text">€8 – €10</span></label>
+          <label class="opt"><input type="radio" name="q8" value="€11 – €14"><span class="opt-text">€11 – €14</span></label>
+          <label class="opt"><input type="radio" name="q8" value="€15 – €18"><span class="opt-text">€15 – €18</span></label>
+          <label class="opt"><input type="radio" name="q8" value="Più di €18"><span class="opt-text">Più di €18</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">9. Cosa ti frenerebbe dall'iscriverti a una piattaforma come Zampoo?</div>
+        <div class="q-hint">Puoi selezionare più risposte</div>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="q9" value="Non voglio passare da una verifica identità"><span class="opt-text">Non voglio passare da una verifica identità</span></label>
+          <label class="opt"><input type="checkbox" name="q9" value="Non mi fido dei pagamenti online"><span class="opt-text">Non mi fido dei pagamenti online</span></label>
+          <label class="opt"><input type="checkbox" name="q9" value="Preferirei lavorare in proprio"><span class="opt-text">Preferirei lavorare in proprio</span></label>
+          <label class="opt"><input type="checkbox" name="q9" value="La commissione della piattaforma mi spaventa"><span class="opt-text">La commissione della piattaforma mi spaventa</span></label>
+          <label class="opt"><input type="checkbox" name="q9" value="Niente — mi iscrivo subito"><span class="opt-text">Niente — mi iscrivo subito</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-text">10. C'è qualcosa che vorresti da una piattaforma come Zampoo che non hai trovato altrove?</div>
+        <div class="q-hint">Facoltativa — scrivi liberamente</div>
+        <textarea name="q10" placeholder="Es. vorrei poter scegliere solo certi tipi di cane..."></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Invia le risposte →</button>
+    <div class="error-msg" id="errorMsg">Qualcosa è andato storto. Riprova tra qualche secondo.</div>
+  </form>
+
+  <div class="success-box" id="successBox">
+    <div class="success-icon">🐾</div>
+    <div class="success-title">Grazie mille!</div>
+    <div class="success-text">Le tue risposte ci aiutano a costruire la piattaforma giusta per i sitter. Ti terremo aggiornato sul lancio a Milano.</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <a href="https://zampoo.it">zampoo.it</a> · zampooapp@gmail.com
+</div>
+
+<script>
+const AT_TOKEN = 'patZMsKhZ2I4bVzkc.d412dc3bcfcfd3faaa631c33fee08765e5bea1d46d9a30fa5e7bbf409a5b4aa8';
+const AT_BASE = 'appEALY9tdwCVXbSC';
+const AT_TABLE = 'Interview Sitter';
+
+document.querySelectorAll('.opt').forEach(opt => {
+  opt.querySelector('input').addEventListener('change', () => {
+    updateProgress();
+    if (opt.querySelector('input').type === 'radio') {
+      const name = opt.querySelector('input').name;
+      document.querySelectorAll(`input[name="${name}"]`).forEach(i => {
+        i.closest('.opt').classList.remove('selected');
+      });
+    }
+    opt.classList.toggle('selected', opt.querySelector('input').checked);
+  });
+});
+
+function updateProgress() {
+  const total = 9;
+  let answered = 0;
+  for (let i = 1; i <= 9; i++) {
+    const inputs = document.querySelectorAll(`[name="q${i}"]:checked`);
+    if (inputs.length > 0) answered++;
+  }
+  document.getElementById('progressBar').style.width = (answered / total * 100) + '%';
+}
+
+document.getElementById('mainForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Invio in corso...';
+
+  const getRadio = (name) => {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : '';
+  };
+  const getCheckboxes = (name) => {
+    return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value).join(', ');
+  };
+
+  const fields = {
+    'Q1 - Situazione attuale': getRadio('q1'),
+    'Q2 - Esperienza cani': getRadio('q2'),
+    'Q3 - Zone disponibilità': getCheckboxes('q3'),
+    'Q4 - Ore settimana': getRadio('q4'),
+    'Q5 - Fasce orarie': getCheckboxes('q5'),
+    'Q6 - Tipo servizio': getCheckboxes('q6'),
+    'Q7 - Motivazione': getRadio('q7'),
+    'Q8 - Tariffa desiderata': getRadio('q8'),
+    'Q9 - Freni iscrizione': getCheckboxes('q9'),
+    'Q10 - Wishlist piattaforma': document.querySelector('[name="q10"]').value,
+    'Data': new Date().toISOString().split('T')[0],
+  };
+
+  try {
+    const res = await fetch(`https://api.airtable.com/v0/${AT_BASE}/${encodeURIComponent(AT_TABLE)}`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${AT_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields })
+    });
+    if (!res.ok) throw new Error('API error');
+    document.getElementById('mainForm').style.display = 'none';
+    document.getElementById('successBox').style.display = 'block';
+  } catch (err) {
+    document.getElementById('errorMsg').style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Invia le risposte →';
+  }
+});
+</script>
+</body>
+</html>
