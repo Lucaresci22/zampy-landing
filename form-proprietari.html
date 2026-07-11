@@ -128,7 +128,7 @@ textarea::placeholder{color:#B4B2A9;}
       </div>
 
       <div class="question">
-        <div class="q-text">6. Qual è stato il tuo problema principale nell'ultimo sitter che hai cercato?</div>
+        <div class="q-text">6. Qual è il tuo problema principale nel trovare un dog sitter?</div>
         <div class="options">
           <label class="opt"><input type="radio" name="q5" value="Non so di chi fidarmi"><span class="opt-text">Non so di chi fidarmi</span></label>
           <label class="opt"><input type="radio" name="q5" value="I prezzi non sono chiari"><span class="opt-text">I prezzi non sono chiari</span></label>
@@ -139,7 +139,7 @@ textarea::placeholder{color:#B4B2A9;}
       </div>
 
       <div class="question">
-        <div class="q-text">7. Ti è mai capitato di rinunciare a qualcosa per non trovare un sitter?</div>
+        <div class="q-text">7. Per trovare un sitter ti è mai capitato di rinunciare a qualcosa (un'uscita, un viaggio, un impegno)?</div>
         <div class="options">
           <label class="opt"><input type="radio" name="q6" value="Sì, spesso"><span class="opt-text">Sì, spesso</span></label>
           <label class="opt"><input type="radio" name="q6" value="Sì, qualche volta"><span class="opt-text">Sì, qualche volta</span></label>
@@ -164,7 +164,7 @@ textarea::placeholder{color:#B4B2A9;}
       </div>
 
       <div class="question">
-        <div class="q-text">9. Quanto hai pagato l'ultimo dog sitter per ora?</div>
+        <div class="q-text">9. Quanto hai pagato / quanto pagheresti un dog sitter per ora?</div>
         <div class="options">
           <label class="opt"><input type="radio" name="q8" value="Meno di €10"><span class="opt-text">Meno di €10</span></label>
           <label class="opt"><input type="radio" name="q8" value="€10 – €14"><span class="opt-text">€10 – €14</span></label>
@@ -273,6 +273,7 @@ document.getElementById('mainForm').addEventListener('submit', async (e) => {
     });
     if (!res.ok) throw new Error('API error');
     document.getElementById('mainForm').style.display = 'none';
+    document.querySelector('.hero').style.display = 'none';
     document.getElementById('successBox').style.display = 'block';
   } catch (err) {
     document.getElementById('errorMsg').style.display = 'block';
@@ -296,10 +297,10 @@ const translations = {
       '3. Con che frequenza hai bisogno di qualcuno che tenga il tuo cane?',
       '4. In quale zona di Milano vivi?',
       '5. Come hai trovato l\'ultimo dog sitter?',
-      '6. Qual è stato il tuo problema principale nell\'ultimo sitter che hai cercato?',
-      '7. Ti è mai capitato di rinunciare a qualcosa perché non riuscivi a trovare un sitter?',
+      '6. Qual è il tuo problema principale nel trovare un dog sitter?',
+      '7. Per trovare un sitter ti è mai capitato di rinunciare a qualcosa (un\'uscita, un viaggio, un impegno)?',
       '8. Cosa è più importante per te quando scegli un sitter?',
-      '9. Quanto hai pagato l\'ultimo dog sitter per ora?',
+      '9. Quanto hai pagato / quanto pagheresti un dog sitter per ora?',
       '10. Quali funzioni ti farebbero scegliere Zampoo?',
       '11. C\'è qualcosa che non ti convince di un servizio come Zampoo?',
     ],
@@ -334,10 +335,10 @@ const translations = {
       '3. How often do you need someone to look after your dog?',
       '4. Which area of Milan do you live in?',
       '5. How did you find your last dog sitter?',
-      '6. What was your main problem when looking for a sitter?',
-      '7. Have you ever had to give something up because you couldn\'t find a sitter?',
+      '6. What is your main problem when looking for a dog sitter?',
+      '7. Has looking for a sitter ever caused you to miss something (an outing, a trip, a commitment)?',
       '8. What matters most to you when choosing a sitter?',
-      '9. How much did you pay your last dog sitter per hour?',
+      '9. How much have you paid / how much would you pay a dog sitter per hour?',
       '10. Which features would make you choose Zampoo?',
       '11. Is there anything about a service like Zampoo that doesn\'t convince you?',
     ],
@@ -375,6 +376,12 @@ function applyLang(lang) {
   document.getElementById('lang-btn').innerHTML = t.langBtn;
   document.getElementById('hero-title').innerHTML = t.heroTitle;
   document.getElementById('hero-text').textContent = t.heroText;
+
+  // Success box
+  const successTitle = document.querySelector('.success-title');
+  const successText = document.querySelector('.success-text');
+  if (successTitle) successTitle.textContent = t.successTitle;
+  if (successText) successText.textContent = t.successText;
 
   // Section labels
   const sectionLabels = document.querySelectorAll('.section-label');

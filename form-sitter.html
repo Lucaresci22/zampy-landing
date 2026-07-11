@@ -277,6 +277,7 @@ document.getElementById('mainForm').addEventListener('submit', async (e) => {
     });
     if (!res.ok) throw new Error('API error');
     document.getElementById('mainForm').style.display = 'none';
+    document.querySelector('.hero').style.display = 'none';
     document.getElementById('successBox').style.display = 'block';
   } catch (err) {
     document.getElementById('errorMsg').style.display = 'block';
@@ -322,6 +323,8 @@ const translations = {
     ],
     placeholder: 'Scrivi qui la tua risposta...',
     submitBtn: 'Invia le risposte →',
+    successTitle: 'Grazie mille!',
+    successText: 'Le tue risposte ci aiutano a costruire la piattaforma giusta per i sitter. Ti terremo aggiornato sul lancio a Milano.',
   },
   en: {
     headerSub: 'Earn money with dogs — Milan',
@@ -357,6 +360,8 @@ const translations = {
     ],
     placeholder: 'Write your answer here...',
     submitBtn: 'Submit answers →',
+    successTitle: 'Thank you!',
+    successText: 'Your answers help us build the right platform for sitters. We\'ll keep you updated on the Milan launch.',
   }
 };
 
@@ -371,6 +376,12 @@ function applyLang(lang) {
   document.getElementById('lang-btn').innerHTML = t.langBtn;
   document.getElementById('hero-title').innerHTML = t.heroTitle;
   document.getElementById('hero-text').textContent = t.heroText;
+
+  // Success box
+  const successTitle = document.querySelector('.success-title');
+  const successText = document.querySelector('.success-text');
+  if (successTitle) successTitle.textContent = t.successTitle;
+  if (successText) successText.textContent = t.successText;
 
   const sectionLabels = document.querySelectorAll('.section-label');
   sectionLabels.forEach((el, i) => { if (t.sections[i]) el.childNodes[0].textContent = t.sections[i]; });
