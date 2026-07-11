@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zampoo — Il dog sitting che funziona davvero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:#0D5C46;--green-mid:#1A7A5E;--green-light:#E8F5F0;
+    --cream:#FAF7F2;--cream-dark:#F0EBE1;--sand:#D9CDB8;
+    --text:#1A1A18;--text-mid:#4A4A42;--text-soft:#8A8A7E;
+    --amber:#C8752A;--amber-light:#FEF3E2;--red:#c0392b;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:rgba(250,247,242,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(217,205,184,0.4);}
+  .logo{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--green);letter-spacing:-.5px;}
+  .logo span{color:var(--amber);}
+  .nav-cta{background:var(--green);color:#fff;border:none;border-radius:100px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;}
+  .nav-cta:hover{background:var(--green-mid);transform:translateY(-1px);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1.1fr;align-items:center;padding:120px 48px 80px;gap:40px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-120px;right:-180px;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(13,92,70,0.09) 0%,transparent 70%);pointer-events:none;}
+  .hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--amber-light);color:var(--amber);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:500;letter-spacing:.03em;margin-bottom:24px;animation:fadeUp .6s ease both;}
+  .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
+  .hero-title{font-family:'Fraunces',serif;font-size:clamp(42px,5vw,68px);font-weight:700;line-height:1.05;letter-spacing:-1.5px;color:var(--text);margin-bottom:24px;animation:fadeUp .7s .1s ease both;}
+  .hero-title em{font-style:italic;font-weight:300;color:var(--green);}
+  .hero-sub{font-size:17px;color:var(--text-mid);line-height:1.65;max-width:440px;margin-bottom:40px;animation:fadeUp .7s .2s ease both;}
+
+  /* FORM */
+  .Zampoo-form-wrap{animation:fadeUp .7s .3s ease both;}
+  .toggle-group{display:flex;background:var(--cream-dark);border-radius:12px;padding:4px;gap:4px;width:fit-content;margin-bottom:12px;}
+  .toggle-btn{border:none;background:transparent;border-radius:9px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;color:var(--text-soft);transition:all .2s;}
+  .toggle-btn.active{background:#fff;color:var(--green);box-shadow:0 1px 6px rgba(0,0,0,0.1);}
+  .form-hint{font-size:13px;color:var(--text-mid);min-height:20px;margin-bottom:10px;}
+  .input-row{display:flex;gap:10px;margin-bottom:8px;}
+  .Zampoo-input{flex:1;padding:14px 18px;border:1.5px solid var(--sand);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;background:#fff;color:var(--text);outline:none;transition:border-color .2s;}
+  .Zampoo-input:focus{border-color:var(--green);}
+  .Zampoo-input::placeholder{color:var(--text-soft);}
+  .Zampoo-input.error{border-color:var(--red);}
+  .Zampoo-submit{background:var(--green);color:#fff;border:none;border-radius:12px;padding:14px 28px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 16px rgba(13,92,70,0.25);}
+  .Zampoo-submit:hover{background:var(--green-mid);transform:translateY(-1px);}
+  .Zampoo-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+  .form-note{font-size:12px;color:var(--text-soft);}
+  .form-note a{color:var(--green);text-decoration:none;cursor:pointer;}
+  .form-note a:hover{text-decoration:underline;}
+  .success-msg{display:none;background:var(--green-light);border:1px solid rgba(13,92,70,0.2);border-radius:12px;padding:14px 18px;font-size:14px;color:var(--green);font-weight:500;margin-top:8px;}
+  .error-msg{display:none;background:#fde8e8;border:1px solid rgba(192,57,43,0.2);border-radius:12px;padding:12px 16px;font-size:13px;color:var(--red);margin-top:8px;}
+
+  /* PHONE MOCKUP */
+  .hero-visual{position:relative;display:flex;justify-content:center;align-items:flex-start;animation:fadeUp .8s .2s ease both;gap:16px;padding-top:20px;}
+  .phone-mockup{width:220px;background:#fff;border-radius:32px;box-shadow:0 24px 60px rgba(0,0,0,0.12),0 0 0 1px rgba(0,0,0,0.06);overflow:hidden;position:relative;z-index:2;flex-shrink:0;display:flex;flex-direction:column;}
+  .phone-inner{padding:14px;flex:1;}
+  .phone-status{display:flex;justify-content:space-between;padding:14px 20px 4px;font-size:11px;font-weight:500;color:#999;}
+  .phone-inner{padding:10px 16px 20px;}
+  .phone-greeting{font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px;font-family:'Fraunces',serif;}
+  .phone-loc{font-size:11px;color:var(--text-soft);margin-bottom:14px;}
+  .phone-card{background:var(--green);border-radius:16px;padding:16px;color:#fff;margin-bottom:12px;}
+  .phone-card-label{font-size:10px;opacity:.7;margin-bottom:4px;}
+  .phone-card-amount{font-size:26px;font-weight:600;font-family:'Fraunces',serif;}
+  .phone-card-sub{font-size:10px;opacity:.7;margin-top:4px;}
+  .sitter-row{display:flex;align-items:center;gap:10px;padding:10px;background:var(--cream);border-radius:12px;margin-bottom:8px;}
+  .sitter-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex-shrink:0;}
+  .sitter-info{flex:1;}
+  .sitter-name{font-size:12px;font-weight:600;color:var(--text);}
+  .sitter-detail{font-size:10px;color:var(--text-soft);}
+  .sitter-price{font-size:12px;font-weight:600;color:var(--green);}
+  .float-card{position:absolute;background:#fff;border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,0.12);padding:12px 14px;font-size:12px;z-index:3;}
+  .float-card-1{top:20px;right:-50px;display:flex;align-items:center;gap:8px;animation:floatY 3s ease-in-out infinite;}
+  .float-card-2{bottom:40px;left:-50px;animation:floatY 3s 1.5s ease-in-out infinite;}
+  @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .float-label{font-size:10px;color:var(--text-soft);}
+  .float-val{font-size:13px;font-weight:600;color:var(--text);}
+  .stars{color:#F5A623;font-size:11px;}
+
+  /* SOCIAL PROOF — ridisegnata senza emoji */
+  .social-proof{
+    padding:0 48px 60px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+  }
+  .proof-item{
+    background:#fff;
+    border:1px solid rgba(217,205,184,0.6);
+    border-radius:12px;
+    padding:16px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .proof-val{
+    font-family:'Fraunces',serif;
+    font-size:22px;
+    font-weight:700;
+    color:var(--green);
+    letter-spacing:-.5px;
+  }
+  .proof-label{
+    font-size:12px;
+    color:var(--text-mid);
+    line-height:1.4;
+  }
+
+  /* SECTIONS */
+  .section{padding:100px 48px;}
+  .section-tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--green);background:var(--green-light);padding:5px 12px;border-radius:100px;margin-bottom:16px;}
+  .section-title{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,52px);font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:16px;}
+  .section-title em{font-style:italic;font-weight:300;color:var(--green);}
+  .section-sub{font-size:17px;color:var(--text-mid);max-width:520px;line-height:1.65;margin-bottom:60px;}
+
+  /* HOW IT WORKS */
+  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .how-card{background:#fff;border-radius:20px;padding:32px 28px;border:1px solid rgba(217,205,184,0.5);transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
+  .how-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green);opacity:0;transition:opacity .2s;}
+  .how-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.08);}
+  .how-card:hover::before{opacity:1;}
+  .how-num{font-family:'Fraunces',serif;font-size:48px;font-weight:700;color:var(--green-light);line-height:1;margin-bottom:16px;}
+  .how-card-title{font-size:17px;font-weight:600;margin-bottom:8px;}
+  .how-card-text{font-size:14px;color:var(--text-mid);line-height:1.6;}
+
+  /* TWO SIDES */
+  .two-sides{padding:0 48px 100px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .side-card{border-radius:24px;padding:48px 40px;position:relative;overflow:hidden;}
+  .side-card.owners{background:var(--green);color:#fff;}
+  .side-card.sitters{background:var(--cream-dark);color:var(--text);border:1px solid var(--sand);}
+  .side-card-emoji{font-size:40px;margin-bottom:20px;display:block;}
+  .side-card-title{font-family:'Fraunces',serif;font-size:32px;font-weight:700;letter-spacing:-.5px;margin-bottom:12px;line-height:1.15;}
+  .side-card-sub{font-size:15px;line-height:1.65;margin-bottom:28px;opacity:.85;}
+  .benefit-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .benefit-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.5;}
+  .benefit-list li::before{content:'✓';width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px;}
+  .side-card.sitters .benefit-list li::before{background:var(--green-light);color:var(--green);}
+  .side-cta{display:inline-block;margin-top:32px;padding:12px 24px;border-radius:100px;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;border:none;font-family:'DM Sans',sans-serif;}
+  .side-card.owners .side-cta{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);}
+  .side-card.owners .side-cta:hover{background:rgba(255,255,255,0.25);}
+  .side-card.sitters .side-cta{background:var(--green);color:#fff;box-shadow:0 4px 16px rgba(13,92,70,0.25);}
+  .side-card.sitters .side-cta:hover{background:var(--green-mid);transform:translateY(-1px);}
+
+  /* TRUST */
+  .trust-section{background:var(--green);padding:100px 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+  .trust-text{color:#fff;}
+  .trust-text .section-tag{background:rgba(255,255,255,0.15);color:#fff;}
+  .trust-text .section-title{color:#fff;}
+  .trust-text .section-title em{color:rgba(255,255,255,0.6);}
+  .trust-text .section-sub{color:rgba(255,255,255,0.75);margin-bottom:0;}
+  .trust-items{display:flex;flex-direction:column;gap:20px;}
+  .trust-item{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start;color:#fff;transition:background .2s;}
+  .trust-item:hover{background:rgba(255,255,255,0.12);}
+  .trust-item-icon{font-size:24px;flex-shrink:0;}
+  .trust-item-title{font-size:15px;font-weight:600;margin-bottom:4px;}
+  .trust-item-text{font-size:13px;opacity:.75;line-height:1.55;}
+
+  /* MERCATO — ridisegnata */
+  .tab-btn{padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text-mid);background:none;border:2px solid transparent;border-radius:100px;cursor:pointer;transition:all .2s;white-space:nowrap;margin:6px 4px;}
+  .tab-btn:hover{color:var(--green);background:var(--green-light);}
+  .tab-btn.active{color:#fff;background:var(--green);border-color:var(--green);font-weight:600;}
+  .lang-btn{background:rgba(13,92,70,0.08);border:1.5px solid rgba(13,92,70,0.2);border-radius:100px;padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--green);cursor:pointer;transition:all .2s;}
+  .lang-btn:hover{background:var(--green);color:#fff;}
+  #perche [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}
+  #promessa [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;gap:40px!important;}
+  #perche,#promessa,#come{padding:60px 20px!important;}
+  .section-sub{text-align:center;}
+
+  /* FINAL CTA */
+  .final-cta{padding:100px 48px;text-align:center;background:var(--cream-dark);position:relative;overflow:hidden;}
+  .final-cta::before{content:'🐾';position:absolute;font-size:200px;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+  .final-cta .section-title{max-width:600px;margin:0 auto 16px;}
+  .final-cta .section-sub{margin:0 auto 40px;}
+  .final-form-wrap{max-width:440px;margin:0 auto;}
+
+  /* FOOTER */
+  footer{padding:40px 48px;border-top:1px solid var(--sand);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer .logo{font-size:20px;}
+  .footer-note{font-size:12px;color:var(--text-soft);}
+  .footer-links{display:flex;gap:24px;align-items:center;}
+  .footer-links a{font-size:13px;color:var(--text-soft);text-decoration:none;transition:color .2s;}
+  .footer-links a:hover{color:var(--green);}
+
+  /* PRIVACY MODAL */
+  .modal-overlay{
+    display:none;position:fixed;inset:0;z-index:999;
+    background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:var(--cream);border-radius:24px;
+    max-width:640px;width:100%;max-height:85vh;
+    overflow-y:auto;padding:48px;
+    position:relative;
+    box-shadow:0 32px 80px rgba(0,0,0,0.2);
+  }
+  .modal-close{
+    position:absolute;top:20px;right:20px;
+    background:var(--cream-dark);border:none;border-radius:50%;
+    width:36px;height:36px;cursor:pointer;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--text-mid);transition:background .2s;
+  }
+  .modal-close:hover{background:var(--sand);}
+  .modal h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--text);margin-bottom:8px;}
+  .modal .modal-date{font-size:12px;color:var(--text-soft);margin-bottom:28px;}
+  .modal h3{font-size:16px;font-weight:600;color:var(--text);margin:24px 0 8px;}
+  .modal p,.modal li{font-size:14px;color:var(--text-mid);line-height:1.7;margin-bottom:8px;}
+  .modal ul{padding-left:20px;margin-bottom:8px;}
+  .modal a{color:var(--green);}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+  @media(max-width:900px){
+    nav{padding:16px 20px;}
+    .hero{grid-template-columns:1fr;padding:100px 20px 60px;gap:48px;}
+    .hero-visual{display:none;}
+    .social-proof{padding:0 20px 48px;grid-template-columns:1fr 1fr;}
+    .section{padding:60px 20px;}
+    .how-grid{grid-template-columns:1fr;}
+    .two-sides{padding:0 20px 60px;grid-template-columns:1fr;}
+    .trust-section{grid-template-columns:1fr;padding:60px 20px;gap:40px;}
+    .market-section{padding:60px 20px;}
+    .tab-btn{padding:6px 12px;font-size:12px;margin:4px 2px;}
+    #info-section > div:first-child{padding:0 12px;overflow-x:auto;}
+    #info-section > div:first-child > div{justify-content:flex-start;min-width:min-content;}
+    .market-section [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}
+    .market-grid{grid-template-columns:1fr;}
+    .final-cta{padding:60px 20px;}
+    footer{padding:32px 20px;flex-direction:column;align-items:flex-start;gap:20px;}
+    .input-row{flex-direction:column;}
+    .modal{padding:32px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- CONTACTS MODAL -->
+<div class="modal-overlay" id="contactsModal" onclick="closeContacts(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeContactsBtn()">✕</button>
+    <h2>Contatti</h2>
+    <div class="modal-date">Zampoo — Dog sitting on demand · Milano</div>
+
+    <h3>Scrivici</h3>
+    <p>Per qualsiasi domanda, suggerimento o richiesta di informazioni puoi contattarci direttamente via email:</p>
+    <p style="margin:16px 0;"><a href="mailto:zampooapp@gmail.com" style="font-size:17px;font-weight:600;color:var(--green);">zampooapp@gmail.com</a></p>
+    <p style="font-size:14px;color:#4A4A42;line-height:1.6;">Ti risponderemo entro 24-48 ore. Siamo un team piccolo e italiano — niente bot, niente risposte automatiche.</p>
+
+    <h3>Seguici su Instagram</h3>
+    <p><a href="https://instagram.com/zampoo.it" target="_blank" rel="noopener" style="font-weight:600;color:var(--green);">@zampoo.it</a> — aggiornamenti sul lancio, consigli per i cani e tutto quello che stiamo costruendo.</p>
+
+    <h3>Dove siamo</h3>
+    <p>Zampoo è un progetto nato a <strong>Milano</strong>. Stiamo costruendo il servizio partendo dalla nostra città, con l'obiettivo di espanderci presto in tutta Italia.</p>
+
+    <p style="margin-top:24px;font-size:13px;color:#8A8A7E;">Per richieste relative alla privacy e ai tuoi dati personali scrivi a <a href="mailto:zampooapp@gmail.com">zampooapp@gmail.com</a>.</p>
+  </div>
+</div>
+
+<!-- PRIVACY MODAL -->
+<div class="modal-overlay" id="privacyModal" onclick="closePrivacy(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closePrivacyBtn()">✕</button>
+    <h2>Privacy Policy</h2>
+    <div class="modal-date">Ultimo aggiornamento: maggio 2025 — Informativa ai sensi dell'art. 13 del Regolamento UE 2016/679 (GDPR)</div>
+
+    <h3>1. Titolare del trattamento</h3>
+    <p><strong>Luca Rescigno</strong>, domiciliato in <strong>Via Leone Pancaldo, Milano, 20129</strong>, Italia.<br>
+    Email: <a href="mailto:privacy@Zampoo.it">privacy@Zampoo.it</a></p>
+    <p style="font-size:12px;color:#8A8A7E;font-style:italic;">Nota: Zampoo è attualmente in fase di pre-lancio. Il progetto è in corso di costituzione come società. Il presente sito raccoglie esclusivamente indirizzi email ai fini della lista d'attesa.</p>
+
+    <h3>2. Dati raccolti</h3>
+    <p>Attraverso questo sito raccogliamo esclusivamente i seguenti dati personali, forniti volontariamente dall'utente:</p>
+    <ul>
+      <li>Indirizzo email</li>
+      <li>Ruolo selezionato (proprietario di cane o dog sitter)</li>
+      <li>Data e ora dell'iscrizione</li>
+      <li>Fonte dell'iscrizione (sezione del sito utilizzata)</li>
+    </ul>
+    <p>Non raccogliamo dati sensibili, dati di pagamento, né dati relativi a minori.</p>
+
+    <h3>3. Finalità e base giuridica del trattamento</h3>
+    <p>I tuoi dati vengono trattati esclusivamente per le seguenti finalità, sulla base del tuo consenso esplicito (art. 6, par. 1, lett. a, GDPR):</p>
+    <ul>
+      <li>Inserimento nella lista d'attesa del servizio Zampoo</li>
+      <li>Comunicazione della disponibilità del servizio a Milano</li>
+      <li>Aggiornamenti periodici sull'andamento del progetto (massimo 1–2 email al mese)</li>
+    </ul>
+    <p>I dati non vengono utilizzati per profilazione commerciale, non vengono ceduti a terzi e non vengono venduti.</p>
+
+    <h3>4. Destinatari dei dati</h3>
+    <p>I dati raccolti sono trattati da Airtable Inc. (USA) in qualità di responsabile del trattamento, nell'ambito del servizio di database utilizzato per la gestione della lista d'attesa. Airtable aderisce alle garanzie previste dal GDPR per i trasferimenti internazionali di dati. Per maggiori informazioni: <a href="https://www.airtable.com/privacy" target="_blank" rel="noopener">airtable.com/privacy</a>.</p>
+
+    <h3>5. Conservazione dei dati</h3>
+    <p>I dati saranno conservati per tutta la durata della fase di pre-lancio e, successivamente, fino a revoca del consenso da parte dell'interessato. Puoi richiedere la cancellazione in qualsiasi momento scrivendo a <a href="mailto:privacy@Zampoo.it">privacy@Zampoo.it</a>. Daremo riscontro entro 30 giorni dalla ricezione della richiesta, come previsto dall'art. 12 del GDPR.</p>
+
+    <h3>6. I tuoi diritti</h3>
+    <p>In qualsiasi momento puoi esercitare i seguenti diritti, scrivendo a <a href="mailto:privacy@Zampoo.it">privacy@Zampoo.it</a>:</p>
+    <ul>
+      <li><strong>Accesso</strong> — ottenere conferma del trattamento e copia dei dati che ti riguardano (art. 15 GDPR)</li>
+      <li><strong>Rettifica</strong> — correggere dati inesatti o incompleti (art. 16 GDPR)</li>
+      <li><strong>Cancellazione</strong> — richiedere la cancellazione dei tuoi dati ("diritto all'oblio", art. 17 GDPR)</li>
+      <li><strong>Limitazione</strong> — richiedere la limitazione del trattamento (art. 18 GDPR)</li>
+      <li><strong>Opposizione</strong> — opporti al trattamento in qualsiasi momento (art. 21 GDPR)</li>
+      <li><strong>Portabilità</strong> — ricevere i tuoi dati in formato strutturato e leggibile (art. 20 GDPR)</li>
+      <li><strong>Revoca del consenso</strong> — revocare il consenso prestato in qualsiasi momento, senza pregiudicare la liceità del trattamento precedente</li>
+    </ul>
+    <p>Hai inoltre il diritto di proporre reclamo all'autorità di controllo competente: <strong>Garante per la protezione dei dati personali</strong>, Piazza Venezia 11, 00187 Roma — <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">www.garanteprivacy.it</a>.</p>
+
+    <h3>7. Cookie e tecnologie di tracciamento</h3>
+    <p>Questo sito utilizza esclusivamente <strong>cookie tecnici strettamente necessari</strong> al funzionamento della pagina (es. gestione della sessione del browser). Non vengono utilizzati cookie di profilazione, cookie analitici di terze parti, né tecnologie di tracciamento pubblicitario. Non è quindi richiesto il banner cookie ai sensi del Provvedimento del Garante dell'8 maggio 2014 e delle successive Linee Guida del 2021.</p>
+
+    <h3>8. Modifiche alla presente informativa</h3>
+    <p>Il titolare si riserva il diritto di aggiornare la presente informativa in qualsiasi momento. In caso di modifiche sostanziali, gli utenti iscritti alla lista d'attesa saranno informati via email. La data di "ultimo aggiornamento" in cima a questo documento indica la versione vigente.</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Zam<span>poo</span></div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">🇬🇧 EN</button>
+    <button class="nav-cta" onclick="scrollToWaitlist()" id="nav-cta-btn">Entra nella lista d'attesa</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">🐾 In arrivo a Milano</div>
+    <h1 class="hero-title">Il dog sitting<br>che <em>funziona</em><br>davvero.</h1>
+    <p class="hero-sub">Prenota un dog sitter di fiducia in meno di 3 minuti. Prezzi chiari, sitter verificati, pagamento sicuro. Niente telefonate, niente nero, niente sorprese.</p>
+    <div class="Zampoo-form-wrap">
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="hero-btn-owner" onclick="setRole('owner','hero')">🐶 Sono un proprietario</button>
+        <button class="toggle-btn" id="hero-btn-sitter" onclick="setRole('sitter','hero')">💼 Faccio il dog sitter</button>
+      </div>
+      <div class="form-hint" id="hero-hint">Entra in lista per trovare il sitter perfetto al lancio.</div>
+      <div class="input-row">
+        <input class="Zampoo-input" type="email" id="hero-email" placeholder="La tua email" autocomplete="email"/>
+        <button class="Zampoo-submit" id="hero-submit" onclick="handleSubmit('hero')">Iscriviti →</button>
+      </div>
+      <div class="error-msg" id="hero-error">Qualcosa è andato storto. Riprova tra qualche istante.</div>
+      <div class="success-msg" id="hero-success">🎉 Sei in lista! Ti avvisiamo per primi quando Zampoo parte a Milano.</div>
+      <div class="form-note" style="margin-top:8px;">
+        Zero spam. Ti scriviamo solo quando siamo pronti.
+        <a onclick="openPrivacy()">Privacy policy</a>.
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div style="display:flex;gap:16px;align-items:stretch;height:100%;">
+
+    <!-- TELEFONO PROPRIETARIO -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+      <div style="font-size:10px;font-weight:600;color:var(--text-soft);letter-spacing:.06em;text-transform:uppercase;">🐶 Proprietario</div>
+      <div class="phone-mockup" style="flex:1;">
+        <div class="phone-status"><span>9:41</span><span>●●● 100%</span></div>
+        <div class="phone-inner">
+          <div class="phone-greeting" style="font-size:15px;">Ciao, Marco 👋</div>
+          <div class="phone-loc">📍 Milano, Navigli</div>
+          <div style="font-size:11px;font-weight:600;color:var(--text-mid);margin:10px 0 6px;">Sitter vicino a te</div>
+          <div class="sitter-row">
+            <div class="sitter-av" style="background:#E8F5F0;color:#0D5C46;">SR</div>
+            <div class="sitter-info">
+              <div class="sitter-name">Sara R. ✓</div>
+              <div class="sitter-detail">0.4 km · ★ 4.9</div>
+            </div>
+            <div class="sitter-price">€14/h</div>
+          </div>
+          <div class="sitter-row">
+            <div class="sitter-av" style="background:#FEF3E2;color:#C8752A;">LM</div>
+            <div class="sitter-info">
+              <div class="sitter-name">Luca M.</div>
+              <div class="sitter-detail">0.8 km · ★ 4.7</div>
+            </div>
+            <div class="sitter-price">€11/h</div>
+          </div>
+          <div class="sitter-row">
+            <div class="sitter-av" style="background:#EEEDFE;color:#3C3489;">GV</div>
+            <div class="sitter-info">
+              <div class="sitter-name">Giulia V. ✓</div>
+              <div class="sitter-detail">1.1 km · ★ 5.0</div>
+            </div>
+            <div class="sitter-price">€16/h</div>
+          </div>
+          <div style="margin-top:10px;background:var(--green);border-radius:10px;padding:10px;text-align:center;">
+            <div style="font-size:11px;color:rgba(255,255,255,0.8);">Totale prenotazione</div>
+            <div style="font-size:18px;font-weight:700;color:#fff;font-family:'Fraunces',serif;">€49.56</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.7);margin-top:2px;">Prezzo visibile prima di confermare</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELEFONO SITTER -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+      <div style="font-size:10px;font-weight:600;color:var(--text-soft);letter-spacing:.06em;text-transform:uppercase;">💼 Dog Sitter</div>
+      <div class="phone-mockup" style="flex:1;">
+        <div class="phone-status"><span>9:41</span><span>●●● 100%</span></div>
+        <div class="phone-inner">
+          <div class="phone-greeting" style="font-size:15px;">Ciao, Sara 🐾</div>
+          <div class="phone-loc">📍 2 richieste in attesa</div>
+          <div class="phone-card">
+            <div class="phone-card-label">Guadagni questo mese</div>
+            <div class="phone-card-amount">€ 312</div>
+            <div class="phone-card-sub">18 sessioni · ★ 4.9</div>
+          </div>
+          <div style="font-size:11px;font-weight:600;color:var(--text-mid);margin:8px 0 6px;">Prossime sessioni</div>
+          <div style="background:var(--cream);border-radius:10px;padding:8px 10px;margin-bottom:6px;border-left:3px solid var(--green);">
+            <div style="font-size:11px;font-weight:600;color:var(--dark);">Marco B. — Labrador</div>
+            <div style="font-size:10px;color:var(--text-mid);">Stasera 20:00 · 3 ore · €42</div>
+          </div>
+          <div style="background:var(--cream);border-radius:10px;padding:8px 10px;border-left:3px solid #F5A623;">
+            <div style="font-size:11px;font-weight:600;color:var(--dark);">Chiara M. — Beagle</div>
+            <div style="font-size:10px;color:var(--text-mid);">Domani 10:00 · 2 ore · €28</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- fine flex wrapper -->
+  </div>
+</section>
+
+<!-- SOCIAL PROOF — ridisegnata come tile pulite -->
+
+
+<!-- SEZIONE UNICA — Perché Zampoo / Promessa / Come funziona -->
+<div id="info-section" style="background:var(--cream);">
+
+  <!-- NAV BOTTONI -->
+  <div style="position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:1px solid var(--sand);padding:0 48px;">
+    <div style="max-width:900px;margin:0 auto;display:flex;gap:0;justify-content:center;padding:8px 0;">
+      <button onclick="scrollToTab('perche')" class="tab-btn active" id="tab-perche">Perché Zampoo</button>
+      <button onclick="scrollToTab('promessa')" class="tab-btn" id="tab-promessa">La nostra promessa</button>
+      <button onclick="scrollToTab('come')" class="tab-btn" id="tab-come">Come funziona</button>
+    </div>
+  </div>
+
+  <!-- PERCHÉ ZAMPOO -->
+  <div id="perche" style="padding:80px 48px;background:var(--cream);">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div class="section-tag">Perché Zampoo</div>
+        <h2 class="section-title" style="text-align:center;">Il dog sitting <em>come dovrebbe essere.</em></h2>
+        <p class="section-sub" style="text-align:center;max-width:520px;margin:0 auto;">Niente più passaparola, prezzi a sorpresa o accordi informali. Con Zampoo sai sempre chi, quanto e come.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div style="background:#fff;border:1px solid var(--sand);border-radius:20px;padding:36px 28px;">
+          <div style="font-size:36px;margin-bottom:16px;">🙋</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;">Sitter che conosci davvero</div>
+          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;">Profilo completo, identità verificata, recensioni reali. Non qualcuno trovato su un gruppo Facebook.</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--sand);border-radius:20px;padding:36px 28px;">
+          <div style="font-size:36px;margin-bottom:16px;">💰</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;">Prezzo chiaro prima di confermare</div>
+          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;">Vedi il costo totale prima di prenotare. Niente contanti, niente sorprese, niente trattative.</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--sand);border-radius:20px;padding:36px 28px;">
+          <div style="font-size:36px;margin-bottom:16px;">😌</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;">Tranquillità durante il servizio</div>
+          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;">GPS tracking, aggiornamenti foto e copertura assicurativa inclusa. Esci e smetti di preoccuparti.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LA NOSTRA PROMESSA -->
+  <div id="promessa" style="padding:80px 48px;background:var(--green);">
+    <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div class="trust-text">
+        <div class="section-tag">La nostra promessa</div>
+        <h2 class="section-title">La fiducia<br>prima <em>di tutto.</em></h2>
+        <p class="section-sub">Il cane è un membro della famiglia. Abbiamo costruito Zampoo attorno a una domanda sola: come lo faremmo se fosse il nostro cane?</p>
+      </div>
+      <div class="trust-items">
+        <div class="trust-item">
+          <div class="trust-item-icon">🪪</div>
+          <div>
+            <div class="trust-item-title">Verifica identità obbligatoria</div>
+            <div class="trust-item-text">Ogni sitter passa da documento, selfie verification e controllo manuale del team Zampoo prima di essere pubblicato.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-item-icon">💰</div>
+          <div>
+            <div class="trust-item-title">Prezzi sempre trasparenti</div>
+            <div class="trust-item-text">La commissione Zampoo è visibile prima di ogni conferma. Nessun abbonamento, nessun costo nascosto.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-item-icon">🛡️</div>
+          <div>
+            <div class="trust-item-title">Copertura assicurativa</div>
+            <div class="trust-item-text">Ogni prenotazione include copertura per danni accidentali e responsabilità civile. Sempre inclusa, senza costi extra.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-item-icon">🇮🇹</div>
+          <div>
+            <div class="trust-item-title">Team italiano, supporto vero</div>
+            <div class="trust-item-text">Siamo italiani, conosciamo il mercato, rispondiamo in italiano. Non un bot, non un contact center offshore.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COME FUNZIONA -->
+  <div id="come" style="padding:80px 48px;background:var(--cream);">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div class="section-tag">Come funziona</div>
+        <h2 class="section-title" style="text-align:center;">Prenota in<br><em>tre passi.</em></h2>
+        <p class="section-sub" style="text-align:center;max-width:520px;margin:0 auto;">Niente telefonate, niente trattative. Apri l'app, scegli il sitter, confermi. Il tuo cane è in buone mani.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-num">01</div>
+          <div class="how-card-title">Cerca il sitter</div>
+          <p class="how-card-text">Filtra per distanza, prezzo, competenze e disponibilità. Ogni profilo mostra recensioni verificate di proprietari reali.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">02</div>
+          <div class="how-card-title">Prenota e paga</div>
+          <p class="how-card-text">Scegli orario e durata. Il prezzo totale — inclusa la commissione Zampoo — è visibile prima di confermare. Nessuna sorpresa.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">03</div>
+          <div class="how-card-title">Rilassati</div>
+          <p class="how-card-text">Segui il tuo cane via GPS durante la sessione. Ricevi aggiornamenti foto. Il pagamento è automatico a fine servizio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TWO SIDES -->
+<section class="two-sides">
+  <div class="side-card owners">
+    <span class="side-card-emoji">🐶</span>
+    <h3 class="side-card-title">Per i proprietari di cane</h3>
+    <!-- FRASE AGGIORNATA: rimosso riferimento a Deliveroo -->
+    <p class="side-card-sub">Il tuo cane merita qualcuno di cui ti fidi davvero. Zampoo ti permette di trovarlo in pochi minuti, con la certezza di sapere esattamente chi stai scegliendo e quanto stai pagando.</p>
+    <ul class="benefit-list">
+      <li>Sitter disponibili anche per stasera</li>
+      <li>Prezzi chiari prima di confermare</li>
+      <li>Profili verificati con recensioni reali</li>
+      <li>GPS tracking durante la passeggiata</li>
+      <li>Copertura assicurativa su ogni prenotazione</li>
+      <li>Ore singole, giornate intere, vacanze, dog hotel</li>
+    </ul>
+    <button class="side-cta" onclick="setRole('owner','final');scrollToWaitlist()">Sono un proprietario →</button>
+  </div>
+  <div class="side-card sitters">
+    <span class="side-card-emoji">💼</span>
+    <h3 class="side-card-title">Per chi vuole fare il dog sitter</h3>
+    <p class="side-card-sub">Trasforma la passione per i cani in un guadagno flessibile e trasparente. Tu scegli tariffa, orari e clienti — Zampoo pensa al resto.</p>
+    <ul class="benefit-list">
+      <li>Sei tu a impostare il tuo prezzo orario</li>
+      <li>Pagamento garantito e automatico</li>
+      <li>Costruisci la tua reputazione con le recensioni</li>
+      <li>Dashboard guadagni e agenda sempre aggiornata</li>
+      <li>Badge verificato per più visibilità</li>
+      <li>Perfetto come side income per studenti e lavoratori</li>
+    </ul>
+    <button class="side-cta" onclick="setRole('sitter','final');scrollToWaitlist()">Diventa dog sitter →</button>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="waitlist">
+  <div class="section-tag">Lista d'attesa</div>
+  <h2 class="section-title">Sii tra i <em>primi.</em></h2>
+  <p class="section-sub">Stiamo costruendo Zampoo e partiamo da Milano. Chi si iscrive ora ha accesso anticipato e condizioni esclusive al lancio.</p>
+  <div class="final-form-wrap">
+    <div class="toggle-group" style="margin:0 auto 12px;">
+      <button class="toggle-btn active" id="final-btn-owner" onclick="setRole('owner','final')">🐶 Sono un proprietario</button>
+      <button class="toggle-btn" id="final-btn-sitter" onclick="setRole('sitter','final')">💼 Faccio il dog sitter</button>
+    </div>
+    <div class="form-hint" id="final-hint" style="text-align:center;margin-bottom:12px;">Entra in lista per trovare il sitter perfetto al lancio.</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <input class="Zampoo-input" type="email" id="final-email" placeholder="La tua email" autocomplete="email"/>
+      <button class="Zampoo-submit" id="final-submit" onclick="handleSubmit('final')" style="width:100%;">Entra nella lista d'attesa →</button>
+    </div>
+    <div class="error-msg" id="final-error">Qualcosa è andato storto. Riprova tra qualche istante.</div>
+    <div class="success-msg" id="final-success">🎉 Sei in lista! Ti avvisiamo tra i primi quando Zampoo parte a Milano.</div>
+    <div class="form-note" style="text-align:center;margin-top:12px;">
+      Zero spam. Ti scriviamo solo quando siamo pronti.
+      <a onclick="openPrivacy()">Privacy policy</a>.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Zam<span>poo</span></div>
+  <div class="footer-note">© 2026 Zampoo — Milano, Italia</div>
+  <div class="footer-links">
+    <a onclick="openPrivacy()" style="cursor:pointer;">Privacy policy</a>
+    <a onclick="openContacts()" style="cursor:pointer;">Contatti</a>
+    <a href="https://instagram.com/zampoo.it" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  CONFIG AIRTABLE — modifica solo queste 3 righe
+//  Istruzioni complete nel README del repository GitHub
+// ═══════════════════════════════════════════════════════
+const AT_TOKEN = 'patk857wG5E2P1BSQ.58000a8d2bb517b27f7640feefb18e692273facc139c781fc71930d191176db7';
+const AT_BASE  = 'appEALY9tdwCVXbSC';
+const AT_TABLE = 'Iscritti';
+// ═══════════════════════════════════════════════════════
+
+function openContacts() {
+  document.getElementById('contactsModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeContactsBtn() {
+  document.getElementById('contactsModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function closeContacts(e) {
+  if (e.target === document.getElementById('contactsModal')) closeContactsBtn();
+}
+
+// ─── PRIVACY MODAL ───
+function openPrivacy() {
+  document.getElementById('privacyModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePrivacyBtn() {
+  document.getElementById('privacyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closePrivacy(e) {
+  if (e.target === document.getElementById('privacyModal')) closePrivacyBtn();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrivacyBtn(); });
+
+// ─── ROLE TOGGLE ───
+const roles = { hero: 'owner', final: 'owner' };
+const hints = {
+  owner: 'Entra in lista per trovare il sitter perfetto al lancio.',
+  sitter: 'Entra in lista per iniziare a guadagnare con Zampoo al lancio.'
+};
+function setRole(role, form) {
+  roles[form] = role;
+  ['owner','sitter'].forEach(r => {
+    document.getElementById(`${form}-btn-${r}`)?.classList.toggle('active', r === role);
+  });
+  const hint = document.getElementById(`${form}-hint`);
+  if (hint) hint.textContent = hints[role];
+}
+
+// ─── FORM SUBMIT ───
+async function fetchWithRetry(url, options, retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, options);
+      return res;
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+    }
+  }
+}
+
+async function handleSubmit(form) {
+  const emailEl   = document.getElementById(`${form}-email`);
+  const submitEl  = document.getElementById(`${form}-submit`);
+  const successEl = document.getElementById(`${form}-success`);
+  const errorEl   = document.getElementById(`${form}-error`);
+  const hintEl    = document.getElementById(`${form}-hint`);
+
+  emailEl.classList.remove('error');
+  errorEl.style.display = 'none';
+
+  const email = emailEl.value.trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    emailEl.classList.add('error');
+    emailEl.focus();
+    return;
+  }
+
+  submitEl.disabled = true;
+  submitEl.textContent = 'Invio…';
+
+  const isConfigured = AT_TOKEN !== 'INCOLLA_QUI_IL_TOKEN' && AT_BASE !== 'INCOLLA_QUI_IL_BASE_ID';
+
+  if (!isConfigured) {
+    // DEMO MODE — mostra successo senza salvare
+    console.log('[Zampoo] Demo mode — dati:', { email, ruolo: roles[form] === 'owner' ? 'Proprietario' : 'Dog Sitter' });
+    setTimeout(() => showSuccess(form, emailEl, submitEl, successEl, hintEl), 700);
+    return;
+  }
+
+  try {
+    const res = await fetchWithRetry(`https://api.airtable.com/v0/${AT_BASE}/${encodeURIComponent(AT_TABLE)}`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${AT_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: {
+          Email: email,
+          Ruolo: roles[form] === 'owner' ? 'Proprietario' : 'Dog Sitter',
+          Fonte: form === 'hero' ? 'Hero' : 'Footer'
+        }
+      })
+    });
+    if (!res.ok) throw new Error((await res.json()).error?.message || 'Errore API');
+    showSuccess(form, emailEl, submitEl, successEl, hintEl);
+  } catch (err) {
+    console.error('[Zampoo]', err);
+    submitEl.disabled = false;
+    submitEl.textContent = form === 'hero' ? 'Iscriviti →' : 'Entra nella lista d\'attesa →';
+    errorEl.textContent = 'Connessione non riuscita. Controlla la rete e riprova.';
+    errorEl.style.display = 'block';
+  }
+}
+
+function showSuccess(form, emailEl, submitEl, successEl, hintEl) {
+  emailEl.style.display = 'none';
+  submitEl.style.display = 'none';
+  if (hintEl) hintEl.style.display = 'none';
+
+  const role = roles[form];
+  const formUrl = role === 'owner'
+    ? 'https://zampoo.it/form-proprietari.html'
+    : 'https://zampoo.it/form-sitter.html';
+  const formLabel = role === 'owner'
+    ? 'Raccontaci di te — ci vuole 3 minuti →'
+    : 'Raccontaci di te — ci vuole 3 minuti →';
+  const formNote = role === 'owner'
+    ? 'Rispondendo ci aiuti a costruire il servizio giusto per i proprietari.'
+    : 'Rispondendo ci aiuti a costruire la piattaforma giusta per i sitter.';
+
+  successEl.innerHTML = `
+    <div style="margin-bottom:12px;">🎉 Sei in lista! Ti avvisiamo per primi quando Zampoo parte a Milano.</div>
+    <div style="border-top:1px solid rgba(13,92,70,0.2);padding-top:12px;margin-top:4px;">
+      <div style="font-size:13px;color:var(--text-mid);margin-bottom:10px;">${formNote}</div>
+      <a href="${formUrl}" target="_blank" style="display:inline-block;background:var(--green);color:#fff;border-radius:10px;padding:10px 18px;font-size:13px;font-weight:600;text-decoration:none;">${formLabel}</a>
+    </div>
+  `;
+  successEl.style.display = 'block';
+}
+
+function scrollToWaitlist() {
+  document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToTab(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const offset = 60;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: 'smooth' });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// Update active tab on scroll
+window.addEventListener('scroll', () => {
+  const sections = ['perche', 'promessa', 'come'];
+  let current = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 80) current = id;
+  });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.getElementById('tab-' + current);
+  if (activeBtn) activeBtn.classList.add('active');
+});
+
+// ─── SCROLL ANIMATIONS ───
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.animation = 'fadeUp .6s ease both';
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.how-card,.trust-item,.side-card').forEach(el => {
+  el.style.opacity = '0';
+  obs.observe(el);
+});
+// ─── LANGUAGE TOGGLE ───
+let siteLang = 'it';
+const siteTranslations = {
+  it: {
+    navCta: 'Entra nella lista d\'attesa',
+    langBtn: '🇬🇧 EN',
+    heroTag: '🐾 In arrivo a Milano',
+    heroTitle: 'Il dog sitting<br>che <em>funziona</em><br>davvero.',
+    heroSub: 'Prenota un dog sitter di fiducia in meno di 3 minuti. Prezzi chiari, sitter verificati, pagamento sicuro. Niente telefonate, niente nero, niente sorprese.',
+    ownerBtn: '🐶 Sono un proprietario',
+    sitterBtn: '💼 Faccio il dog sitter',
+    ownerHint: 'Entra in lista per trovare il sitter perfetto al lancio.',
+    sitterHint: 'Entra in lista per iniziare a guadagnare con Zampoo al lancio.',
+    emailPlaceholder: 'La tua email',
+    heroSubmit: 'Iscriviti →',
+    tab1: 'Perché Zampoo', tab2: 'La nostra promessa', tab3: 'Come funziona',
+    finalTag: 'Lista d\'attesa',
+    finalTitle: 'Sii tra i <em>primi.</em>',
+    finalSub: 'Stiamo costruendo Zampoo e partiamo da Milano. Chi si iscrive ora ha accesso anticipato e condizioni esclusive al lancio.',
+    finalOwner: '🐶 Sono un proprietario', finalSitter: '💼 Faccio il dog sitter',
+    finalSubmit: 'Entra nella lista d\'attesa →',
+    privacyNote: 'Zero spam. Ti scriviamo solo quando siamo pronti.',
+    footerPrivacy: 'Privacy policy', footerContatti: 'Contatti', footerInsta: 'Instagram',
+  },
+  en: {
+    navCta: 'Join the waitlist',
+    langBtn: '🇮🇹 IT',
+    heroTag: '🐾 Coming to Milan',
+    heroTitle: 'Dog sitting<br>that <em>actually</em><br>works.',
+    heroSub: 'Book a trusted dog sitter in less than 3 minutes. Clear prices, verified sitters, secure payment. No calls, no cash, no surprises.',
+    ownerBtn: '🐶 I\'m a dog owner',
+    sitterBtn: '💼 I\'m a dog sitter',
+    ownerHint: 'Join the list to find the perfect sitter at launch.',
+    sitterHint: 'Join the list to start earning with Zampoo at launch.',
+    emailPlaceholder: 'Your email',
+    heroSubmit: 'Sign up →',
+    tab1: 'Why Zampoo', tab2: 'Our promise', tab3: 'How it works',
+    finalTag: 'Waitlist',
+    finalTitle: 'Be among the <em>first.</em>',
+    finalSub: 'We\'re building Zampoo starting from Milan. Sign up now for early access and exclusive conditions at launch.',
+    finalOwner: '🐶 I\'m a dog owner', finalSitter: '💼 I\'m a dog sitter',
+    finalSubmit: 'Join the waitlist →',
+    privacyNote: 'Zero spam. We\'ll only write when we\'re ready.',
+    footerPrivacy: 'Privacy policy', footerContatti: 'Contact', footerInsta: 'Instagram',
+  }
+};
+
+function toggleLang() {
+  siteLang = siteLang === 'it' ? 'en' : 'it';
+  applySiteLang(siteLang);
+}
+
+function applySiteLang(lang) {
+  const t = siteTranslations[lang];
+  document.getElementById('lang-btn').innerHTML = t.langBtn;
+  document.getElementById('nav-cta-btn').textContent = t.navCta;
+  document.getElementById('tab-perche').textContent = t.tab1;
+  document.getElementById('tab-promessa').textContent = t.tab2;
+  document.getElementById('tab-come').textContent = t.tab3;
+  // Hero toggles
+  const hOwner = document.getElementById('hero-btn-owner');
+  const hSitter = document.getElementById('hero-btn-sitter');
+  if (hOwner) hOwner.textContent = t.ownerBtn;
+  if (hSitter) hSitter.textContent = t.sitterBtn;
+  // Hero email
+  const heroEmail = document.getElementById('hero-email');
+  if (heroEmail) heroEmail.placeholder = t.emailPlaceholder;
+  const heroSubmit = document.getElementById('hero-submit');
+  if (heroSubmit) heroSubmit.textContent = t.heroSubmit;
+  // Final form
+  const fOwner = document.getElementById('final-btn-owner');
+  const fSitter = document.getElementById('final-btn-sitter');
+  if (fOwner) fOwner.textContent = t.finalOwner;
+  if (fSitter) fSitter.textContent = t.finalSitter;
+  const finalEmail = document.getElementById('final-email');
+  if (finalEmail) finalEmail.placeholder = t.emailPlaceholder;
+  const finalSubmit = document.getElementById('final-submit');
+  if (finalSubmit) finalSubmit.textContent = t.finalSubmit;
+}
+
+</script>
+</body>
+</html>
