@@ -30,9 +30,9 @@
   .hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--amber-light);color:var(--amber);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:500;letter-spacing:.03em;margin-bottom:24px;animation:fadeUp .6s ease both;}
   .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite;}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
-  .hero-title{font-family:'Fraunces',serif;font-size:clamp(42px,5vw,68px);font-weight:700;line-height:1.05;letter-spacing:-1.5px;color:var(--text);margin-bottom:24px;animation:fadeUp .7s .1s ease both;}
+  .hero-title{font-family:'Fraunces',serif;font-size:clamp(42px,5vw,68px);font-weight:700;line-height:1.05;letter-spacing:-1.5px;color:var(--text);margin-bottom:24px;animation:fadeUp .7s .1s ease both;min-height:3.2em;}
   .hero-title em{font-style:italic;font-weight:300;color:var(--green);}
-  .hero-sub{font-size:17px;color:var(--text-mid);line-height:1.65;max-width:440px;margin-bottom:40px;animation:fadeUp .7s .2s ease both;}
+  .hero-sub{font-size:17px;color:var(--text-mid);line-height:1.65;max-width:440px;margin-bottom:40px;animation:fadeUp .7s .2s ease both;min-height:4.5em;}
 
   /* FORM */
   .Zampoo-form-wrap{animation:fadeUp .7s .3s ease both;}
@@ -114,7 +114,7 @@
   .section-tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--green);background:var(--green-light);padding:5px 12px;border-radius:100px;margin-bottom:16px;}
   .section-title{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,52px);font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:16px;}
   .section-title em{font-style:italic;font-weight:300;color:var(--green);}
-  .section-sub{font-size:17px;color:var(--text-mid);max-width:520px;line-height:1.65;margin-bottom:60px;}
+  .section-sub{font-size:17px;color:var(--text-mid);max-width:520px;line-height:1.65;margin-bottom:60px;min-height:3em;}
 
   /* HOW IT WORKS */
   .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
@@ -124,7 +124,7 @@
   .how-card:hover::before{opacity:1;}
   .how-num{font-family:'Fraunces',serif;font-size:48px;font-weight:700;color:var(--green-light);line-height:1;margin-bottom:16px;}
   .how-card-title{font-size:17px;font-weight:600;margin-bottom:8px;}
-  .how-card-text{font-size:14px;color:var(--text-mid);line-height:1.6;}
+  .how-card-text{font-size:14px;color:var(--text-mid);line-height:1.6;min-height:3.5em;}
 
   /* TWO SIDES */
   .two-sides{padding:0 48px 100px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
@@ -156,7 +156,7 @@
   .trust-item:hover{background:rgba(255,255,255,0.12);}
   .trust-item-icon{font-size:24px;flex-shrink:0;}
   .trust-item-title{font-size:15px;font-weight:600;margin-bottom:4px;}
-  .trust-item-text{font-size:13px;opacity:.75;line-height:1.55;}
+  .trust-item-text{font-size:13px;opacity:.75;line-height:1.55;min-height:2.5em;}
 
   /* MERCATO — ridisegnata */
   .tab-btn{padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text-mid);background:none;border:2px solid transparent;border-radius:100px;cursor:pointer;transition:all .2s;white-space:nowrap;margin:6px 4px;}
@@ -331,9 +331,9 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-tag">🐾 In arrivo a Milano</div>
-    <h1 class="hero-title">Il dog sitting<br>che <em>funziona</em><br>davvero.</h1>
-    <p class="hero-sub">Prenota un dog sitter di fiducia in meno di 3 minuti. Prezzi chiari, sitter verificati, pagamento sicuro. Niente telefonate, niente nero, niente sorprese.</p>
+    <div class="hero-tag" data-i18n="heroTag">🐾 In arrivo a Milano</div>
+    <h1 class="hero-title" data-i18n-html="heroTitle">Il dog sitting<br>che <em>funziona</em><br>davvero.</h1>
+    <p class="hero-sub" data-i18n="heroSub">Prenota un dog sitter di fiducia in meno di 3 minuti. Prezzi chiari, sitter verificati, pagamento sicuro. Niente telefonate, niente nero, niente sorprese.</p>
     <div class="Zampoo-form-wrap">
       <div class="toggle-group">
         <button class="toggle-btn active" id="hero-btn-owner" onclick="setRole('owner','hero')">🐶 Sono un proprietario</button>
@@ -347,8 +347,8 @@
       <div class="error-msg" id="hero-error">Qualcosa è andato storto. Riprova tra qualche istante.</div>
       <div class="success-msg" id="hero-success">🎉 Sei in lista! Ti avvisiamo per primi quando Zampoo parte a Milano.</div>
       <div class="form-note" style="margin-top:8px;">
-        Zero spam. Ti scriviamo solo quando siamo pronti.
-        <a onclick="openPrivacy()">Privacy policy</a>.
+        <span data-i18n="zeroSpam">Zero spam. Ti scriviamo solo quando siamo pronti.</span>
+        <a onclick="openPrivacy()" data-i18n="privacyLink">Privacy policy</a>.
       </div>
     </div>
   </div>
@@ -447,25 +447,25 @@
   <div id="perche" style="padding:80px 48px;background:var(--cream);">
     <div style="max-width:900px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:48px;">
-        <div class="section-tag">Perché Zampoo</div>
-        <h2 class="section-title" style="text-align:center;">Il dog sitting <em>come dovrebbe essere.</em></h2>
-        <p class="section-sub" style="text-align:center;max-width:520px;margin:0 auto;">Niente più passaparola, prezzi a sorpresa o accordi informali. Con Zampoo sai sempre chi, quanto e come.</p>
+        <div class="section-tag" data-i18n="percheTag">Perché Zampoo</div>
+        <h2 class="section-title" style="text-align:center;" data-i18n-html="percheTitle">Il dog sitting <em>come dovrebbe essere.</em></h2>
+        <p class="section-sub" style="text-align:center;max-width:520px;margin:0 auto;" data-i18n="percheSub">Niente più passaparola, prezzi a sorpresa o accordi informali. Con Zampoo sai sempre chi, quanto e come.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
         <div style="background:#fff;border:1px solid var(--sand);border-radius:20px;padding:36px 28px;">
           <div style="font-size:36px;margin-bottom:16px;">🙋</div>
-          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;">Sitter che conosci davvero</div>
-          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;">Profilo completo, identità verificata, recensioni reali. Non qualcuno trovato su un gruppo Facebook.</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;" data-i18n="card1Title">Sitter che conosci davvero</div>
+          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;" data-i18n="card1Text">Profilo completo, identità verificata, recensioni reali. Non qualcuno trovato su un gruppo Facebook.</div>
         </div>
         <div style="background:#fff;border:1px solid var(--sand);border-radius:20px;padding:36px 28px;">
           <div style="font-size:36px;margin-bottom:16px;">💰</div>
-          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;">Prezzo chiaro prima di confermare</div>
-          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;">Vedi il costo totale prima di prenotare. Niente contanti, niente sorprese, niente trattative.</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;" data-i18n="card2Title">Prezzo chiaro prima di confermare</div>
+          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;" data-i18n="card2Text">Vedi il costo totale prima di prenotare. Niente contanti, niente sorprese, niente trattative.</div>
         </div>
         <div style="background:#fff;border:1px solid var(--sand);border-radius:20px;padding:36px 28px;">
           <div style="font-size:36px;margin-bottom:16px;">😌</div>
-          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;">Tranquillità durante il servizio</div>
-          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;">GPS tracking, aggiornamenti foto e copertura assicurativa inclusa. Esci e smetti di preoccuparti.</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;" data-i18n="card3Title">Tranquillità durante il servizio</div>
+          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;" data-i18n="card3Text">GPS tracking, aggiornamenti foto e copertura assicurativa inclusa. Esci e smetti di preoccuparti.</div>
         </div>
       </div>
     </div>
@@ -475,37 +475,37 @@
   <div id="promessa" style="padding:80px 48px;background:var(--green);">
     <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
       <div class="trust-text">
-        <div class="section-tag">La nostra promessa</div>
-        <h2 class="section-title">La fiducia<br>prima <em>di tutto.</em></h2>
-        <p class="section-sub">Il cane è un membro della famiglia. Abbiamo costruito Zampoo attorno a una domanda sola: come lo faremmo se fosse il nostro cane?</p>
+        <div class="section-tag" data-i18n="promessaTag">La nostra promessa</div>
+        <h2 class="section-title" data-i18n-html="promessaTitle">La fiducia<br>prima <em>di tutto.</em></h2>
+        <p class="section-sub" data-i18n="promessaSub">Il cane è un membro della famiglia. Abbiamo costruito Zampoo attorno a una domanda sola: come lo faremmo se fosse il nostro cane?</p>
       </div>
       <div class="trust-items">
         <div class="trust-item">
           <div class="trust-item-icon">🪪</div>
           <div>
-            <div class="trust-item-title">Verifica identità obbligatoria</div>
-            <div class="trust-item-text">Ogni sitter passa da documento, selfie verification e controllo manuale del team Zampoo prima di essere pubblicato.</div>
+            <div class="trust-item-title" data-i18n="trust1Title">Verifica identità obbligatoria</div>
+            <div class="trust-item-text" data-i18n="trust1Text">Ogni sitter passa da documento, selfie verification e controllo manuale del team Zampoo prima di essere pubblicato.</div>
           </div>
         </div>
         <div class="trust-item">
           <div class="trust-item-icon">💰</div>
           <div>
-            <div class="trust-item-title">Prezzi sempre trasparenti</div>
-            <div class="trust-item-text">La commissione Zampoo è visibile prima di ogni conferma. Nessun abbonamento, nessun costo nascosto.</div>
+            <div class="trust-item-title" data-i18n="trust2Title">Prezzi sempre trasparenti</div>
+            <div class="trust-item-text" data-i18n="trust2Text">La commissione Zampoo è visibile prima di ogni conferma. Nessun abbonamento, nessun costo nascosto.</div>
           </div>
         </div>
         <div class="trust-item">
           <div class="trust-item-icon">🛡️</div>
           <div>
-            <div class="trust-item-title">Copertura assicurativa</div>
-            <div class="trust-item-text">Ogni prenotazione include copertura per danni accidentali e responsabilità civile. Sempre inclusa, senza costi extra.</div>
+            <div class="trust-item-title" data-i18n="trust3Title">Copertura assicurativa</div>
+            <div class="trust-item-text" data-i18n="trust3Text">Ogni prenotazione include copertura per danni accidentali e responsabilità civile. Sempre inclusa, senza costi extra.</div>
           </div>
         </div>
         <div class="trust-item">
           <div class="trust-item-icon">🇮🇹</div>
           <div>
-            <div class="trust-item-title">Team italiano, supporto vero</div>
-            <div class="trust-item-text">Siamo italiani, conosciamo il mercato, rispondiamo in italiano. Non un bot, non un contact center offshore.</div>
+            <div class="trust-item-title" data-i18n="trust4Title">Team italiano, supporto vero</div>
+            <div class="trust-item-text" data-i18n="trust4Text">Siamo italiani, conosciamo il mercato, rispondiamo in italiano. Non un bot, non un contact center offshore.</div>
           </div>
         </div>
       </div>
@@ -516,25 +516,25 @@
   <div id="come" style="padding:80px 48px;background:var(--cream);">
     <div style="max-width:900px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:48px;">
-        <div class="section-tag">Come funziona</div>
-        <h2 class="section-title" style="text-align:center;">Prenota in<br><em>tre passi.</em></h2>
-        <p class="section-sub" style="text-align:center;max-width:520px;margin:0 auto;">Niente telefonate, niente trattative. Apri l'app, scegli il sitter, confermi. Il tuo cane è in buone mani.</p>
+        <div class="section-tag" data-i18n="comeTag">Come funziona</div>
+        <h2 class="section-title" style="text-align:center;" data-i18n-html="comeTitle">Prenota in<br><em>tre passi.</em></h2>
+        <p class="section-sub" style="text-align:center;max-width:520px;margin:0 auto;" data-i18n="comeSub">Niente telefonate, niente trattative. Apri l'app, scegli il sitter, confermi. Il tuo cane è in buone mani.</p>
       </div>
       <div class="how-grid">
         <div class="how-card">
           <div class="how-num">01</div>
-          <div class="how-card-title">Cerca il sitter</div>
-          <p class="how-card-text">Filtra per distanza, prezzo, competenze e disponibilità. Ogni profilo mostra recensioni verificate di proprietari reali.</p>
+          <div class="how-card-title" data-i18n="how1Title">Cerca il sitter</div>
+          <p class="how-card-text" data-i18n="how1Text">Filtra per distanza, prezzo, competenze e disponibilità. Ogni profilo mostra recensioni verificate di proprietari reali.</p>
         </div>
         <div class="how-card">
           <div class="how-num">02</div>
-          <div class="how-card-title">Prenota e paga</div>
-          <p class="how-card-text">Scegli orario e durata. Il prezzo totale — inclusa la commissione Zampoo — è visibile prima di confermare. Nessuna sorpresa.</p>
+          <div class="how-card-title" data-i18n="how2Title">Prenota e paga</div>
+          <p class="how-card-text" data-i18n="how2Text">Scegli orario e durata. Il prezzo totale — inclusa la commissione Zampoo — è visibile prima di confermare. Nessuna sorpresa.</p>
         </div>
         <div class="how-card">
           <div class="how-num">03</div>
-          <div class="how-card-title">Rilassati</div>
-          <p class="how-card-text">Segui il tuo cane via GPS durante la sessione. Ricevi aggiornamenti foto. Il pagamento è automatico a fine servizio.</p>
+          <div class="how-card-title" data-i18n="how3Title">Rilassati</div>
+          <p class="how-card-text" data-i18n="how3Text">Segui il tuo cane via GPS durante la sessione. Ricevi aggiornamenti foto. Il pagamento è automatico a fine servizio.</p>
         </div>
       </div>
     </div>
@@ -546,40 +546,40 @@
 <section class="two-sides">
   <div class="side-card owners">
     <span class="side-card-emoji">🐶</span>
-    <h3 class="side-card-title">Per i proprietari di cane</h3>
+    <h3 class="side-card-title" data-i18n="ownersTitle">Per i proprietari di cane</h3>
     <!-- FRASE AGGIORNATA: rimosso riferimento a Deliveroo -->
-    <p class="side-card-sub">Il tuo cane merita qualcuno di cui ti fidi davvero. Zampoo ti permette di trovarlo in pochi minuti, con la certezza di sapere esattamente chi stai scegliendo e quanto stai pagando.</p>
+    <p class="side-card-sub" data-i18n="ownersSub">Il tuo cane merita qualcuno di cui ti fidi davvero. Zampoo ti permette di trovarlo in pochi minuti, con la certezza di sapere esattamente chi stai scegliendo e quanto stai pagando.</p>
     <ul class="benefit-list">
-      <li>Sitter disponibili anche per stasera</li>
-      <li>Prezzi chiari prima di confermare</li>
-      <li>Profili verificati con recensioni reali</li>
-      <li>GPS tracking durante la passeggiata</li>
-      <li>Copertura assicurativa su ogni prenotazione</li>
-      <li>Ore singole, giornate intere, vacanze, dog hotel</li>
+      <li data-i18n="ownerBenefit1">Sitter disponibili anche per stasera</li>
+      <li data-i18n="ownerBenefit2">Prezzi chiari prima di confermare</li>
+      <li data-i18n="ownerBenefit3">Profili verificati con recensioni reali</li>
+      <li data-i18n="ownerBenefit4">GPS tracking durante la passeggiata</li>
+      <li data-i18n="ownerBenefit5">Copertura assicurativa su ogni prenotazione</li>
+      <li data-i18n="ownerBenefit6">Ore singole, giornate intere, vacanze, dog hotel</li>
     </ul>
-    <button class="side-cta" onclick="setRole('owner','final');scrollToWaitlist()">Sono un proprietario →</button>
+    <button class="side-cta" onclick="setRole('owner','final');scrollToWaitlist()" data-i18n="ownersCta">Sono un proprietario →</button>
   </div>
   <div class="side-card sitters">
     <span class="side-card-emoji">💼</span>
-    <h3 class="side-card-title">Per chi vuole fare il dog sitter</h3>
-    <p class="side-card-sub">Trasforma la passione per i cani in un guadagno flessibile e trasparente. Tu scegli tariffa, orari e clienti — Zampoo pensa al resto.</p>
+    <h3 class="side-card-title" data-i18n="sittersTitle">Per chi vuole fare il dog sitter</h3>
+    <p class="side-card-sub" data-i18n="sittersSub">Trasforma la passione per i cani in un guadagno flessibile e trasparente. Tu scegli tariffa, orari e clienti — Zampoo pensa al resto.</p>
     <ul class="benefit-list">
-      <li>Sei tu a impostare il tuo prezzo orario</li>
-      <li>Pagamento garantito e automatico</li>
-      <li>Costruisci la tua reputazione con le recensioni</li>
-      <li>Dashboard guadagni e agenda sempre aggiornata</li>
-      <li>Badge verificato per più visibilità</li>
-      <li>Perfetto come side income per studenti e lavoratori</li>
+      <li data-i18n="sitterBenefit1">Sei tu a impostare il tuo prezzo orario</li>
+      <li data-i18n="sitterBenefit2">Pagamento garantito e automatico</li>
+      <li data-i18n="sitterBenefit3">Costruisci la tua reputazione con le recensioni</li>
+      <li data-i18n="sitterBenefit4">Dashboard guadagni e agenda sempre aggiornata</li>
+      <li data-i18n="sitterBenefit5">Badge verificato per più visibilità</li>
+      <li data-i18n="sitterBenefit6">Perfetto come side income per studenti e lavoratori</li>
     </ul>
-    <button class="side-cta" onclick="setRole('sitter','final');scrollToWaitlist()">Diventa dog sitter →</button>
+    <button class="side-cta" onclick="setRole('sitter','final');scrollToWaitlist()" data-i18n="sittersCta">Diventa dog sitter →</button>
   </div>
 </section>
 
 <!-- FINAL CTA -->
 <section class="final-cta" id="waitlist">
-  <div class="section-tag">Lista d'attesa</div>
-  <h2 class="section-title">Sii tra i <em>primi.</em></h2>
-  <p class="section-sub">Stiamo costruendo Zampoo e partiamo da Milano. Chi si iscrive ora ha accesso anticipato e condizioni esclusive al lancio.</p>
+  <div class="section-tag" data-i18n="finalTag">Lista d'attesa</div>
+  <h2 class="section-title" data-i18n-html="finalTitle">Sii tra i <em>primi.</em></h2>
+  <p class="section-sub" data-i18n="finalSub">Stiamo costruendo Zampoo e partiamo da Milano. Chi si iscrive ora ha accesso anticipato e condizioni esclusive al lancio.</p>
   <div class="final-form-wrap">
     <div class="toggle-group" style="margin:0 auto 12px;">
       <button class="toggle-btn active" id="final-btn-owner" onclick="setRole('owner','final')">🐶 Sono un proprietario</button>
@@ -593,8 +593,8 @@
     <div class="error-msg" id="final-error">Qualcosa è andato storto. Riprova tra qualche istante.</div>
     <div class="success-msg" id="final-success">🎉 Sei in lista! Ti avvisiamo tra i primi quando Zampoo parte a Milano.</div>
     <div class="form-note" style="text-align:center;margin-top:12px;">
-      Zero spam. Ti scriviamo solo quando siamo pronti.
-      <a onclick="openPrivacy()">Privacy policy</a>.
+      <span data-i18n="zeroSpam">Zero spam. Ti scriviamo solo quando siamo pronti.</span>
+      <a onclick="openPrivacy()" data-i18n="privacyLink">Privacy policy</a>.
     </div>
   </div>
 </section>
@@ -604,8 +604,8 @@
   <div class="logo">Zam<span>poo</span></div>
   <div class="footer-note">© 2026 Zampoo — Milano, Italia</div>
   <div class="footer-links">
-    <a onclick="openPrivacy()" style="cursor:pointer;">Privacy policy</a>
-    <a onclick="openContacts()" style="cursor:pointer;">Contatti</a>
+    <a onclick="openPrivacy()" style="cursor:pointer;" data-i18n="footerPrivacy">Privacy policy</a>
+    <a onclick="openContacts()" style="cursor:pointer;" data-i18n="footerContatti">Contatti</a>
     <a href="https://instagram.com/zampoo.it" target="_blank" rel="noopener">Instagram</a>
   </div>
 </footer>
@@ -795,48 +795,125 @@ document.querySelectorAll('.how-card,.trust-item,.side-card').forEach(el => {
 });
 // ─── LANGUAGE TOGGLE ───
 let siteLang = 'it';
-const siteTranslations = {
+
+const i18n = {
   it: {
-    navCta: 'Entra nella lista d\'attesa',
     langBtn: '🇬🇧 EN',
+    navCta: "Entra nella lista d'attesa",
+    tab1: 'Perché Zampoo', tab2: 'La nostra promessa', tab3: 'Come funziona',
     heroTag: '🐾 In arrivo a Milano',
     heroTitle: 'Il dog sitting<br>che <em>funziona</em><br>davvero.',
     heroSub: 'Prenota un dog sitter di fiducia in meno di 3 minuti. Prezzi chiari, sitter verificati, pagamento sicuro. Niente telefonate, niente nero, niente sorprese.',
-    ownerBtn: '🐶 Sono un proprietario',
-    sitterBtn: '💼 Faccio il dog sitter',
+    ownerBtn: '🐶 Sono un proprietario', sitterBtn: '💼 Faccio il dog sitter',
     ownerHint: 'Entra in lista per trovare il sitter perfetto al lancio.',
     sitterHint: 'Entra in lista per iniziare a guadagnare con Zampoo al lancio.',
     emailPlaceholder: 'La tua email',
     heroSubmit: 'Iscriviti →',
-    tab1: 'Perché Zampoo', tab2: 'La nostra promessa', tab3: 'Come funziona',
-    finalTag: 'Lista d\'attesa',
+    percheTag: 'Perché Zampoo',
+    percheTitle: 'Il dog sitting <em>come dovrebbe essere.</em>',
+    percheSub: 'Niente più passaparola, prezzi a sorpresa o accordi informali. Con Zampoo sai sempre chi, quanto e come.',
+    card1Title: 'Sitter che conosci davvero',
+    card1Text: 'Profilo completo, identità verificata, recensioni reali. Non qualcuno trovato su un gruppo Facebook.',
+    card2Title: 'Prezzo chiaro prima di confermare',
+    card2Text: 'Vedi il costo totale prima di prenotare. Niente contanti, niente sorprese, niente trattative.',
+    card3Title: 'Tranquillità durante il servizio',
+    card3Text: 'GPS tracking, aggiornamenti foto e copertura assicurativa inclusa. Esci e smetti di preoccuparti.',
+    promessaTag: 'La nostra promessa',
+    promessaTitle: 'La fiducia<br>prima <em>di tutto.</em>',
+    promessaSub: 'Il cane è un membro della famiglia. Abbiamo costruito Zampoo attorno a una domanda sola: come lo faremmo se fosse il nostro cane?',
+    trust1Title: 'Verifica identità obbligatoria',
+    trust1Text: 'Ogni sitter passa da documento, selfie verification e controllo manuale del team Zampoo prima di essere pubblicato.',
+    trust2Title: 'Prezzi sempre trasparenti',
+    trust2Text: 'La commissione Zampoo è visibile prima di ogni conferma. Nessun abbonamento, nessun costo nascosto.',
+    trust3Title: 'Copertura assicurativa',
+    trust3Text: 'Ogni prenotazione include copertura per danni accidentali e responsabilità civile. Sempre inclusa, senza costi extra.',
+    trust4Title: 'Team italiano, supporto vero',
+    trust4Text: 'Siamo italiani, conosciamo il mercato, rispondiamo in italiano. Non un bot, non un contact center offshore.',
+    comeTag: 'Come funziona',
+    comeTitle: 'Prenota in<br><em>tre passi.</em>',
+    comeSub: "Niente telefonate, niente trattative. Apri l'app, scegli il sitter, confermi. Il tuo cane è in buone mani.",
+    how1Title: 'Cerca il sitter', how1Text: 'Filtra per distanza, prezzo, competenze e disponibilità. Ogni profilo mostra recensioni verificate di proprietari reali.',
+    how2Title: 'Prenota e paga', how2Text: 'Scegli orario e durata. Il prezzo totale — inclusa la commissione Zampoo — è visibile prima di confermare. Nessuna sorpresa.',
+    how3Title: 'Rilassati', how3Text: 'Segui il tuo cane via GPS durante la sessione. Ricevi aggiornamenti foto. Il pagamento è automatico a fine servizio.',
+    ownersTitle: 'Per i proprietari di cane',
+    ownersSub: 'Il tuo cane merita qualcuno di cui ti fidi davvero. Zampoo ti permette di trovarlo in pochi minuti, con la certezza di sapere esattamente chi stai scegliendo e quanto stai pagando.',
+    ownerBenefit1: 'Sitter disponibili anche per stasera', ownerBenefit2: 'Prezzi chiari prima di confermare',
+    ownerBenefit3: 'Profili verificati con recensioni reali', ownerBenefit4: 'GPS tracking durante la passeggiata',
+    ownerBenefit5: 'Copertura assicurativa su ogni prenotazione', ownerBenefit6: 'Ore singole, giornate intere, vacanze, dog hotel',
+    ownersCta: 'Sono un proprietario →',
+    sittersTitle: 'Per chi vuole fare il dog sitter',
+    sittersSub: 'Trasforma la passione per i cani in un guadagno flessibile e trasparente. Tu scegli tariffa, orari e clienti — Zampoo pensa al resto.',
+    sitterBenefit1: 'Sei tu a impostare il tuo prezzo orario', sitterBenefit2: 'Pagamento garantito e automatico',
+    sitterBenefit3: 'Costruisci la tua reputazione con le recensioni', sitterBenefit4: 'Dashboard guadagni e agenda sempre aggiornata',
+    sitterBenefit5: 'Badge verificato per più visibilità', sitterBenefit6: 'Perfetto come side income per studenti e lavoratori',
+    sittersCta: 'Diventa dog sitter →',
+    finalTag: "Lista d'attesa",
     finalTitle: 'Sii tra i <em>primi.</em>',
     finalSub: 'Stiamo costruendo Zampoo e partiamo da Milano. Chi si iscrive ora ha accesso anticipato e condizioni esclusive al lancio.',
-    finalOwner: '🐶 Sono un proprietario', finalSitter: '💼 Faccio il dog sitter',
-    finalSubmit: 'Entra nella lista d\'attesa →',
-    privacyNote: 'Zero spam. Ti scriviamo solo quando siamo pronti.',
-    footerPrivacy: 'Privacy policy', footerContatti: 'Contatti', footerInsta: 'Instagram',
+    finalOwnerBtn: '🐶 Sono un proprietario', finalSitterBtn: '💼 Faccio il dog sitter',
+    finalSubmit: "Entra nella lista d'attesa →",
+    zeroSpam: 'Zero spam. Ti scriviamo solo quando siamo pronti.',
+    privacyLink: 'Privacy policy',
+    footerPrivacy: 'Privacy policy', footerContatti: 'Contatti',
   },
   en: {
-    navCta: 'Join the waitlist',
     langBtn: '🇮🇹 IT',
+    navCta: 'Join the waitlist',
+    tab1: 'Why Zampoo', tab2: 'Our promise', tab3: 'How it works',
     heroTag: '🐾 Coming to Milan',
     heroTitle: 'Dog sitting<br>that <em>actually</em><br>works.',
     heroSub: 'Book a trusted dog sitter in less than 3 minutes. Clear prices, verified sitters, secure payment. No calls, no cash, no surprises.',
-    ownerBtn: '🐶 I\'m a dog owner',
-    sitterBtn: '💼 I\'m a dog sitter',
+    ownerBtn: '🐶 I\'m a dog owner', sitterBtn: '💼 I\'m a dog sitter',
     ownerHint: 'Join the list to find the perfect sitter at launch.',
     sitterHint: 'Join the list to start earning with Zampoo at launch.',
     emailPlaceholder: 'Your email',
     heroSubmit: 'Sign up →',
-    tab1: 'Why Zampoo', tab2: 'Our promise', tab3: 'How it works',
+    percheTag: 'Why Zampoo',
+    percheTitle: 'Dog sitting <em>the way it should be.</em>',
+    percheSub: 'No more word of mouth, surprise prices or informal arrangements. With Zampoo you always know who, how much and how.',
+    card1Title: 'Sitters you really know',
+    card1Text: 'Complete profile, verified identity, real reviews. Not someone found in a Facebook group.',
+    card2Title: 'Clear price before you confirm',
+    card2Text: 'See the total cost before booking. No cash, no surprises, no haggling.',
+    card3Title: 'Peace of mind during the service',
+    card3Text: 'GPS tracking, photo updates and insurance cover included. Head out and stop worrying.',
+    promessaTag: 'Our promise',
+    promessaTitle: 'Trust<br>above <em>everything.</em>',
+    promessaSub: 'Your dog is a family member. We built Zampoo around one question: how would we do it if it were our dog?',
+    trust1Title: 'Mandatory identity check',
+    trust1Text: 'Every sitter goes through ID verification, selfie check and manual review by the Zampoo team before going live.',
+    trust2Title: 'Always transparent pricing',
+    trust2Text: 'The Zampoo fee is shown before every booking. No subscription, no hidden costs.',
+    trust3Title: 'Insurance cover',
+    trust3Text: 'Every booking includes cover for accidental damage and liability. Always included, at no extra cost.',
+    trust4Title: 'Italian team, real support',
+    trust4Text: 'We\'re Italian, we know the market, we respond in your language. Not a bot, not an offshore call centre.',
+    comeTag: 'How it works',
+    comeTitle: 'Book in<br><em>three steps.</em>',
+    comeSub: 'No calls, no negotiations. Open the app, choose a sitter, confirm. Your dog is in good hands.',
+    how1Title: 'Find a sitter', how1Text: 'Filter by distance, price, skills and availability. Every profile shows verified reviews from real owners.',
+    how2Title: 'Book and pay', how2Text: 'Choose time and duration. The total price — including the Zampoo fee — is shown before you confirm. No surprises.',
+    how3Title: 'Relax', how3Text: 'Track your dog via GPS during the session. Get photo updates. Payment is automatic at the end of the service.',
+    ownersTitle: 'For dog owners',
+    ownersSub: 'Your dog deserves someone you truly trust. Zampoo lets you find them in minutes, knowing exactly who you\'re choosing and what you\'re paying.',
+    ownerBenefit1: 'Sitters available even for tonight', ownerBenefit2: 'Clear prices before you confirm',
+    ownerBenefit3: 'Verified profiles with real reviews', ownerBenefit4: 'GPS tracking during the walk',
+    ownerBenefit5: 'Insurance cover on every booking', ownerBenefit6: 'Single hours, full days, holidays, dog hotel',
+    ownersCta: 'I\'m a dog owner →',
+    sittersTitle: 'For those who want to be a dog sitter',
+    sittersSub: 'Turn your love for dogs into flexible, transparent earnings. You set the rate, hours and clients — Zampoo handles the rest.',
+    sitterBenefit1: 'You set your own hourly rate', sitterBenefit2: 'Guaranteed, automatic payment',
+    sitterBenefit3: 'Build your reputation with reviews', sitterBenefit4: 'Earnings dashboard and calendar always up to date',
+    sitterBenefit5: 'Verified badge for more visibility', sitterBenefit6: 'Perfect as a side income for students and workers',
+    sittersCta: 'Become a dog sitter →',
     finalTag: 'Waitlist',
     finalTitle: 'Be among the <em>first.</em>',
     finalSub: 'We\'re building Zampoo starting from Milan. Sign up now for early access and exclusive conditions at launch.',
-    finalOwner: '🐶 I\'m a dog owner', finalSitter: '💼 I\'m a dog sitter',
+    finalOwnerBtn: '🐶 I\'m a dog owner', finalSitterBtn: '💼 I\'m a dog sitter',
     finalSubmit: 'Join the waitlist →',
-    privacyNote: 'Zero spam. We\'ll only write when we\'re ready.',
-    footerPrivacy: 'Privacy policy', footerContatti: 'Contact', footerInsta: 'Instagram',
+    zeroSpam: 'Zero spam. We\'ll only write when we\'re ready.',
+    privacyLink: 'Privacy policy',
+    footerPrivacy: 'Privacy policy', footerContatti: 'Contact',
   }
 };
 
@@ -846,31 +923,48 @@ function toggleLang() {
 }
 
 function applySiteLang(lang) {
-  const t = siteTranslations[lang];
+  const t = i18n[lang];
+
+  // Button
   document.getElementById('lang-btn').innerHTML = t.langBtn;
   document.getElementById('nav-cta-btn').textContent = t.navCta;
+
+  // Tabs
   document.getElementById('tab-perche').textContent = t.tab1;
   document.getElementById('tab-promessa').textContent = t.tab2;
   document.getElementById('tab-come').textContent = t.tab3;
-  // Hero toggles
-  const hOwner = document.getElementById('hero-btn-owner');
-  const hSitter = document.getElementById('hero-btn-sitter');
-  if (hOwner) hOwner.textContent = t.ownerBtn;
-  if (hSitter) hSitter.textContent = t.sitterBtn;
-  // Hero email
-  const heroEmail = document.getElementById('hero-email');
-  if (heroEmail) heroEmail.placeholder = t.emailPlaceholder;
-  const heroSubmit = document.getElementById('hero-submit');
-  if (heroSubmit) heroSubmit.textContent = t.heroSubmit;
-  // Final form
-  const fOwner = document.getElementById('final-btn-owner');
-  const fSitter = document.getElementById('final-btn-sitter');
-  if (fOwner) fOwner.textContent = t.finalOwner;
-  if (fSitter) fSitter.textContent = t.finalSitter;
-  const finalEmail = document.getElementById('final-email');
-  if (finalEmail) finalEmail.placeholder = t.emailPlaceholder;
-  const finalSubmit = document.getElementById('final-submit');
-  if (finalSubmit) finalSubmit.textContent = t.finalSubmit;
+
+  // Role toggles
+  document.getElementById('hero-btn-owner').textContent = t.ownerBtn;
+  document.getElementById('hero-btn-sitter').textContent = t.sitterBtn;
+  document.getElementById('final-btn-owner').textContent = t.finalOwnerBtn;
+  document.getElementById('final-btn-sitter').textContent = t.finalSitterBtn;
+
+  // Hints
+  const hHint = document.getElementById('hero-hint');
+  const fHint = document.getElementById('final-hint');
+  const curHeroRole = roles['hero'] || 'owner';
+  const curFinalRole = roles['final'] || 'owner';
+  if (hHint) hHint.textContent = curHeroRole === 'owner' ? t.ownerHint : t.sitterHint;
+  if (fHint) fHint.textContent = curFinalRole === 'owner' ? t.ownerHint : t.sitterHint;
+
+  // Email placeholders & submit buttons
+  document.getElementById('hero-email').placeholder = t.emailPlaceholder;
+  document.getElementById('final-email').placeholder = t.emailPlaceholder;
+  document.getElementById('hero-submit').textContent = t.heroSubmit;
+  document.getElementById('final-submit').textContent = t.finalSubmit;
+
+  // All data-i18n (plain text)
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  // All data-i18n-html (HTML content like headings with <em>)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
 }
 
 </script>
