@@ -158,7 +158,13 @@
   .trust-item-text{font-size:13px;opacity:.75;line-height:1.55;}
 
   /* MERCATO — ridisegnata */
-  .market-section{padding:100px 48px;background:var(--cream);}
+  .tab-btn{padding:10px 24px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text-mid);background:none;border:2px solid transparent;border-radius:100px;cursor:pointer;transition:all .2s;white-space:nowrap;margin:12px 6px;}
+  .tab-btn:hover{color:var(--green);background:var(--green-light);}
+  .tab-btn.active{color:#fff;background:var(--green);border-color:var(--green);font-weight:600;}
+  #perche [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}
+  #promessa [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;gap:40px!important;}
+  #perche,#promessa,#come{padding:60px 20px!important;}
+  .section-sub{text-align:center;}
   .market-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -270,6 +276,7 @@
     .two-sides{padding:0 20px 60px;grid-template-columns:1fr;}
     .trust-section{grid-template-columns:1fr;padding:60px 20px;gap:40px;}
     .market-section{padding:60px 20px;}
+    .market-section [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}
     .market-grid{grid-template-columns:1fr;}
     .final-cta{padding:60px 20px;}
     footer{padding:32px 20px;flex-direction:column;align-items:flex-start;gap:20px;}
@@ -280,16 +287,38 @@
 </head>
 <body>
 
+<!-- CONTACTS MODAL -->
+<div class="modal-overlay" id="contactsModal" onclick="closeContacts(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeContactsBtn()">✕</button>
+    <h2>Contatti</h2>
+    <div class="modal-date">Zampoo — Dog sitting on demand · Milano</div>
+
+    <h3>Scrivici</h3>
+    <p>Per qualsiasi domanda, suggerimento o richiesta di informazioni puoi contattarci direttamente via email:</p>
+    <p style="margin:16px 0;"><a href="mailto:zampooapp@gmail.com" style="font-size:17px;font-weight:600;color:var(--green);">zampooapp@gmail.com</a></p>
+    <p style="font-size:14px;color:#4A4A42;line-height:1.6;">Ti risponderemo entro 24-48 ore. Siamo un team piccolo e italiano — niente bot, niente risposte automatiche.</p>
+
+    <h3>Seguici su Instagram</h3>
+    <p><a href="https://instagram.com/zampoo.it" target="_blank" rel="noopener" style="font-weight:600;color:var(--green);">@zampoo.it</a> — aggiornamenti sul lancio, consigli per i cani e tutto quello che stiamo costruendo.</p>
+
+    <h3>Dove siamo</h3>
+    <p>Zampoo è un progetto nato a <strong>Milano</strong>. Stiamo costruendo il servizio partendo dalla nostra città, con l'obiettivo di espanderci presto in tutta Italia.</p>
+
+    <p style="margin-top:24px;font-size:13px;color:#8A8A7E;">Per richieste relative alla privacy e ai tuoi dati personali scrivi a <a href="mailto:zampooapp@gmail.com">zampooapp@gmail.com</a>.</p>
+  </div>
+</div>
+
 <!-- PRIVACY MODAL -->
 <div class="modal-overlay" id="privacyModal" onclick="closePrivacy(event)">
   <div class="modal">
     <button class="modal-close" onclick="closePrivacyBtn()">✕</button>
     <h2>Privacy Policy</h2>
-    <div class="modal-date">Ultimo aggiornamento: giugno 2026 — Informativa ai sensi dell'art. 13 del Regolamento UE 2016/679 (GDPR)</div>
+    <div class="modal-date">Ultimo aggiornamento: maggio 2025 — Informativa ai sensi dell'art. 13 del Regolamento UE 2016/679 (GDPR)</div>
 
     <h3>1. Titolare del trattamento</h3>
     <p><strong>Luca Rescigno</strong>, domiciliato in <strong>Via Leone Pancaldo, Milano, 20129</strong>, Italia.<br>
-    Email: <a href="mailto:zampooapp@gmail.com">zampooapp@gmail.com</a></p>
+    Email: <a href="mailto:privacy@Zampoo.it">privacy@Zampoo.it</a></p>
     <p style="font-size:12px;color:#8A8A7E;font-style:italic;">Nota: Zampoo è attualmente in fase di pre-lancio. Il progetto è in corso di costituzione come società. Il presente sito raccoglie esclusivamente indirizzi email ai fini della lista d'attesa.</p>
 
     <h3>2. Dati raccolti</h3>
@@ -315,10 +344,10 @@
     <p>I dati raccolti sono trattati da Airtable Inc. (USA) in qualità di responsabile del trattamento, nell'ambito del servizio di database utilizzato per la gestione della lista d'attesa. Airtable aderisce alle garanzie previste dal GDPR per i trasferimenti internazionali di dati. Per maggiori informazioni: <a href="https://www.airtable.com/privacy" target="_blank" rel="noopener">airtable.com/privacy</a>.</p>
 
     <h3>5. Conservazione dei dati</h3>
-    <p>I dati saranno conservati per tutta la durata della fase di pre-lancio e, successivamente, fino a revoca del consenso da parte dell'interessato. Puoi richiedere la cancellazione in qualsiasi momento scrivendo a <a href="mailto:zampooapp@gmail.com">zampooapp@gmail.com</a>. Daremo riscontro entro 30 giorni dalla ricezione della richiesta, come previsto dall'art. 12 del GDPR.</p>
+    <p>I dati saranno conservati per tutta la durata della fase di pre-lancio e, successivamente, fino a revoca del consenso da parte dell'interessato. Puoi richiedere la cancellazione in qualsiasi momento scrivendo a <a href="mailto:privacy@Zampoo.it">privacy@Zampoo.it</a>. Daremo riscontro entro 30 giorni dalla ricezione della richiesta, come previsto dall'art. 12 del GDPR.</p>
 
     <h3>6. I tuoi diritti</h3>
-    <p>In qualsiasi momento puoi esercitare i seguenti diritti, scrivendo a <a href="mailto:zampooapp@gmail.com">zampooapp@gmail.com</a>:</p>
+    <p>In qualsiasi momento puoi esercitare i seguenti diritti, scrivendo a <a href="mailto:privacy@Zampoo.it">privacy@Zampoo.it</a>:</p>
     <ul>
       <li><strong>Accesso</strong> — ottenere conferma del trattamento e copia dei dati che ti riguardano (art. 15 GDPR)</li>
       <li><strong>Rettifica</strong> — correggere dati inesatti o incompleti (art. 16 GDPR)</li>
@@ -416,48 +445,118 @@
 </section>
 
 <!-- SOCIAL PROOF — ridisegnata come tile pulite -->
-<div class="social-proof">
-  <div class="proof-item">
-    <div class="proof-val">7,3M</div>
-    <div class="proof-label">cani registrati in Italia</div>
-  </div>
-  <div class="proof-item">
-    <div class="proof-val">3 min</div>
-    <div class="proof-label">per trovare e prenotare un sitter</div>
-  </div>
-  <div class="proof-item">
-    <div class="proof-val">0€</div>
-    <div class="proof-label">abbonamenti. Paghi solo quando usi Zampoo</div>
-  </div>
-  <div class="proof-item">
-    <div class="proof-val">100%</div>
-    <div class="proof-label">sitter verificati prima del primo servizio</div>
-  </div>
-</div>
 
-<!-- HOW IT WORKS -->
-<section class="section">
-  <div class="section-tag">Come funziona</div>
-  <h2 class="section-title">Prenota in<br><em>tre passi.</em></h2>
-  <p class="section-sub">Niente telefonate, niente trattative. Apri l'app, scegli il sitter, confermi. Il tuo cane è in buone mani.</p>
-  <div class="how-grid">
-    <div class="how-card">
-      <div class="how-num">01</div>
-      <div class="how-card-title">Cerca il sitter</div>
-      <p class="how-card-text">Filtra per distanza, prezzo, competenze e disponibilità. Ogni profilo mostra recensioni verificate di proprietari reali.</p>
-    </div>
-    <div class="how-card">
-      <div class="how-num">02</div>
-      <div class="how-card-title">Prenota e paga</div>
-      <p class="how-card-text">Scegli orario e durata. Il prezzo totale — inclusa la commissione Zampoo — è visibile prima di confermare. Nessuna sorpresa.</p>
-    </div>
-    <div class="how-card">
-      <div class="how-num">03</div>
-      <div class="how-card-title">Rilassati</div>
-      <p class="how-card-text">Segui il tuo cane via GPS durante la sessione. Ricevi aggiornamenti foto. Il pagamento è automatico a fine servizio.</p>
+
+<!-- SEZIONE UNICA — Perché Zampoo / Promessa / Come funziona -->
+<div id="info-section" style="background:var(--cream);">
+
+  <!-- NAV BOTTONI -->
+  <div style="position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:1px solid var(--sand);padding:0 48px;">
+    <div style="max-width:900px;margin:0 auto;display:flex;gap:0;justify-content:center;padding:8px 0;">
+      <button onclick="scrollToTab('perche')" class="tab-btn active" id="tab-perche">Perché Zampoo</button>
+      <button onclick="scrollToTab('promessa')" class="tab-btn" id="tab-promessa">La nostra promessa</button>
+      <button onclick="scrollToTab('come')" class="tab-btn" id="tab-come">Come funziona</button>
     </div>
   </div>
-</section>
+
+  <!-- PERCHÉ ZAMPOO -->
+  <div id="perche" style="padding:80px 48px;background:var(--cream);">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div class="section-tag">Perché Zampoo</div>
+        <h2 class="section-title" style="text-align:center;">Il dog sitting <em>come dovrebbe essere.</em></h2>
+        <p class="section-sub" style="text-align:center;max-width:520px;margin:0 auto;">Niente più passaparola, prezzi a sorpresa o accordi informali. Con Zampoo sai sempre chi, quanto e come.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div style="background:#fff;border:1px solid var(--sand);border-radius:20px;padding:36px 28px;">
+          <div style="font-size:36px;margin-bottom:16px;">🙋</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;">Sitter che conosci davvero</div>
+          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;">Profilo completo, identità verificata, recensioni reali. Non qualcuno trovato su un gruppo Facebook.</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--sand);border-radius:20px;padding:36px 28px;">
+          <div style="font-size:36px;margin-bottom:16px;">💰</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;">Prezzo chiaro prima di confermare</div>
+          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;">Vedi il costo totale prima di prenotare. Niente contanti, niente sorprese, niente trattative.</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--sand);border-radius:20px;padding:36px 28px;">
+          <div style="font-size:36px;margin-bottom:16px;">😌</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--dark);margin-bottom:10px;letter-spacing:-.3px;">Tranquillità durante il servizio</div>
+          <div style="font-size:14px;color:var(--text-mid);line-height:1.65;">GPS tracking, aggiornamenti foto e copertura assicurativa inclusa. Esci e smetti di preoccuparti.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LA NOSTRA PROMESSA -->
+  <div id="promessa" style="padding:80px 48px;background:var(--green);">
+    <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div class="trust-text">
+        <div class="section-tag">La nostra promessa</div>
+        <h2 class="section-title">La fiducia<br>prima <em>di tutto.</em></h2>
+        <p class="section-sub">Il cane è un membro della famiglia. Abbiamo costruito Zampoo attorno a una domanda sola: come lo faremmo se fosse il nostro cane?</p>
+      </div>
+      <div class="trust-items">
+        <div class="trust-item">
+          <div class="trust-item-icon">🪪</div>
+          <div>
+            <div class="trust-item-title">Verifica identità obbligatoria</div>
+            <div class="trust-item-text">Ogni sitter passa da documento, selfie verification e controllo manuale del team Zampoo prima di essere pubblicato.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-item-icon">💰</div>
+          <div>
+            <div class="trust-item-title">Prezzi sempre trasparenti</div>
+            <div class="trust-item-text">La commissione Zampoo è visibile prima di ogni conferma. Nessun abbonamento, nessun costo nascosto.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-item-icon">🛡️</div>
+          <div>
+            <div class="trust-item-title">Copertura assicurativa</div>
+            <div class="trust-item-text">Ogni prenotazione include copertura per danni accidentali e responsabilità civile. Sempre inclusa, senza costi extra.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-item-icon">🇮🇹</div>
+          <div>
+            <div class="trust-item-title">Team italiano, supporto vero</div>
+            <div class="trust-item-text">Siamo italiani, conosciamo il mercato, rispondiamo in italiano. Non un bot, non un contact center offshore.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COME FUNZIONA -->
+  <div id="come" style="padding:80px 48px;background:var(--cream);">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div class="section-tag">Come funziona</div>
+        <h2 class="section-title" style="text-align:center;">Prenota in<br><em>tre passi.</em></h2>
+        <p class="section-sub" style="text-align:center;max-width:520px;margin:0 auto;">Niente telefonate, niente trattative. Apri l'app, scegli il sitter, confermi. Il tuo cane è in buone mani.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-num">01</div>
+          <div class="how-card-title">Cerca il sitter</div>
+          <p class="how-card-text">Filtra per distanza, prezzo, competenze e disponibilità. Ogni profilo mostra recensioni verificate di proprietari reali.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">02</div>
+          <div class="how-card-title">Prenota e paga</div>
+          <p class="how-card-text">Scegli orario e durata. Il prezzo totale — inclusa la commissione Zampoo — è visibile prima di confermare. Nessuna sorpresa.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">03</div>
+          <div class="how-card-title">Rilassati</div>
+          <p class="how-card-text">Segui il tuo cane via GPS durante la sessione. Ricevi aggiornamenti foto. Il pagamento è automatico a fine servizio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 <!-- TWO SIDES -->
 <section class="two-sides">
@@ -492,79 +591,6 @@
   </div>
 </section>
 
-<!-- TRUST -->
-<section class="trust-section">
-  <div class="trust-text">
-    <div class="section-tag">La nostra promessa</div>
-    <h2 class="section-title">La fiducia<br>prima <em>di tutto.</em></h2>
-    <p class="section-sub">Il cane è un membro della famiglia. Abbiamo costruito Zampoo attorno a una domanda sola: come lo faremmo se fosse il nostro cane?</p>
-  </div>
-  <div class="trust-items">
-    <div class="trust-item">
-      <div class="trust-item-icon">🪪</div>
-      <div>
-        <div class="trust-item-title">Verifica identità obbligatoria</div>
-        <div class="trust-item-text">Ogni sitter passa da documento, selfie verification e controllo manuale del team Zampoo prima di essere pubblicato.</div>
-      </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-item-icon">💰</div>
-      <div>
-        <div class="trust-item-title">Prezzi sempre trasparenti</div>
-        <div class="trust-item-text">La commissione Zampoo è visibile prima di ogni conferma. Nessun abbonamento, nessun costo nascosto.</div>
-      </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-item-icon">🛡️</div>
-      <div>
-        <div class="trust-item-title">Copertura assicurativa</div>
-        <div class="trust-item-text">Ogni prenotazione include copertura per danni accidentali e responsabilità civile. Sempre inclusa, senza costi extra.</div>
-      </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-item-icon">🇮🇹</div>
-      <div>
-        <div class="trust-item-title">Team italiano, supporto vero</div>
-        <div class="trust-item-text">Siamo italiani, conosciamo il mercato, rispondiamo in italiano. Non un bot, non un contact center offshore.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MERCATO — ridisegnata -->
-<section class="market-section">
-  <div style="text-align:center;">
-    <div class="section-tag">Il mercato</div>
-    <h2 class="section-title">Perché <em>adesso.</em></h2>
-    <p class="section-sub" style="margin:0 auto 0;">Il pet care in Italia è un mercato enorme e in crescita, ancora privo di una piattaforma digitale all'altezza.</p>
-  </div>
-  <div class="market-grid">
-    <!-- Tile principale: dato di mercato -->
-    <div class="market-tile-main">
-      <div class="tile-val">€2,4B</div>
-      <div class="tile-label">spesa annua degli italiani<br>in prodotti e servizi per animali domestici</div>
-    </div>
-    <!-- Colonna destra: 3 tile più piccole -->
-    <div class="market-col">
-      <div class="market-tile">
-        <div class="tile-val">7,3M</div>
-        <div class="tile-label">cani registrati in Italia — uno dei mercati pet più grandi d'Europa</div>
-        <div class="tile-badge">🇮🇹 Mercato</div>
-      </div>
-      <div class="market-tile">
-        <div class="tile-val">3 min</div>
-        <div class="tile-label">è tutto quello che serve per prenotare. Niente più telefonate o ricerche su WhatsApp</div>
-        <div class="tile-badge">⚡ Velocità</div>
-      </div>
-      <div class="market-tile">
-        <div class="tile-val">0€</div>
-        <div class="tile-label">di abbonamento. Paghi solo quando usi Zampoo — nessun costo fisso mensile</div>
-        <div class="tile-badge">✓ Trasparenza</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FINAL CTA -->
 <section class="final-cta" id="waitlist">
   <div class="section-tag">Lista d'attesa</div>
@@ -595,9 +621,7 @@
   <div class="footer-note">© 2026 Zampoo — Milano, Italia</div>
   <div class="footer-links">
     <a onclick="openPrivacy()" style="cursor:pointer;">Privacy policy</a>
-    
-    <a href="mailto:zampooapp@gmail.com">Contatti</a>
-    
+    <a onclick="openContacts()" style="cursor:pointer;">Contatti</a>
     <a href="https://instagram.com/zampoo.it" target="_blank" rel="noopener">Instagram</a>
   </div>
 </footer>
@@ -611,6 +635,18 @@ const AT_TOKEN = 'patZMsKhZ2I4bVzkc.d412dc3bcfcfd3faaa631c33fee08765e5bea1d46d9a
 const AT_BASE  = 'appEALY9tdwCVXbSC';
 const AT_TABLE = 'Iscritti';
 // ═══════════════════════════════════════════════════════
+
+function openContacts() {
+  document.getElementById('contactsModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeContactsBtn() {
+  document.getElementById('contactsModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function closeContacts(e) {
+  if (e.target === document.getElementById('contactsModal')) closeContactsBtn();
+}
 
 // ─── PRIVACY MODAL ───
 function openPrivacy() {
@@ -704,6 +740,29 @@ function scrollToWaitlist() {
   document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
 }
 
+function scrollToTab(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const offset = 60;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: 'smooth' });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// Update active tab on scroll
+window.addEventListener('scroll', () => {
+  const sections = ['perche', 'promessa', 'come'];
+  let current = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 80) current = id;
+  });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.getElementById('tab-' + current);
+  if (activeBtn) activeBtn.classList.add('active');
+});
+
 // ─── SCROLL ANIMATIONS ───
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -713,7 +772,8 @@ const obs = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.1 });
-document.querySelectorAll('.how-card,.market-tile,.market-tile-main,.trust-item,.side-card,.proof-item').forEach(el => {
+
+document.querySelectorAll('.how-card,.trust-item,.side-card').forEach(el => {
   el.style.opacity = '0';
   obs.observe(el);
 });
