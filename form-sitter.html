@@ -34,6 +34,9 @@ body{font-family:'DM Sans',sans-serif;background:#FAF7F2;color:#1A1A18;min-heigh
 textarea{width:100%;padding:12px 14px;border:1.5px solid #E8E0D4;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1A1A18;background:#FAF7F2;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;}
 textarea:focus{border-color:#F5A623;}
 textarea::placeholder{color:#B4B2A9;}
+.email-input{width:100%;padding:12px 14px;border:1.5px solid #E8E0D4;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1A1A18;background:#FAF7F2;outline:none;transition:border-color .15s;}
+.email-input:focus{border-color:#F5A623;}
+.email-input::placeholder{color:#B4B2A9;}
 .submit-btn{width:100%;background:#F5A623;color:#0D5C46;border:none;border-radius:12px;padding:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:background .15s;margin-top:8px;}
 .submit-btn:hover{background:#EF9F27;}
 .submit-btn:disabled{background:#B4B2A9;color:#fff;cursor:not-allowed;}
@@ -194,6 +197,12 @@ textarea::placeholder{color:#B4B2A9;}
         <div class="q-hint">Facoltativa — scrivi liberamente</div>
         <textarea name="q10" placeholder="Es. vorrei poter scegliere solo certi tipi di cane..."></textarea>
       </div>
+
+      <div class="question">
+        <div class="q-text">Se non sei ancora in waitlist, lasciaci la tua mail per essere tra i primi a provarlo</div>
+        <div class="q-hint">Facoltativo</div>
+        <input type="email" name="email" class="email-input" placeholder="tuaemail@esempio.it">
+      </div>
     </div>
 
     <button type="submit" class="submit-btn" id="submitBtn">Invia le risposte →</button>
@@ -266,6 +275,7 @@ document.getElementById('mainForm').addEventListener('submit', async (e) => {
     'Q9 - Tariffa desiderata': getRadio('q8'),
     'Q10 - Freni iscrizione': getCheckboxes('q9'),
     'Q11 - Wishlist piattaforma': document.querySelector('[name="q10"]').value,
+    'Email': document.querySelector('[name="email"]').value,
     'Data': new Date().toISOString().split('T')[0],
   };
 
@@ -307,8 +317,9 @@ const translations = {
       '9. Quanto vorresti guadagnare per ora?',
       '10. Cosa ti frenerebbe dall\'iscriverti a una piattaforma come Zampoo?',
       '11. C\'è qualcosa che vorresti da una piattaforma come Zampoo che non hai trovato altrove?',
+      'Se non sei ancora in waitlist, lasciaci la tua mail per essere tra i primi a provarlo',
     ],
-    qHints: ['Puoi selezionare più risposte', 'Puoi selezionare più risposte', 'Puoi selezionare più risposte', 'Puoi selezionare più risposte'],
+    qHints: ['Puoi selezionare più risposte', 'Puoi selezionare più risposte', 'Puoi selezionare più risposte', 'Puoi selezionare più risposte', 'Facoltativa — scrivi liberamente', 'Facoltativo'],
     options: [
       ['Studente universitario', 'Lavoratore dipendente', 'Freelance / partita IVA', 'In cerca di lavoro', 'Altro'],
       ['18 – 25', '26 – 35', '36 – 45', '46 – 55', 'Oltre 55'],
@@ -322,6 +333,7 @@ const translations = {
       ['Non voglio passare da una verifica identità', 'Non mi fido dei pagamenti online', 'Preferirei lavorare in proprio', 'La commissione della piattaforma mi spaventa', 'Niente — mi iscrivo subito'],
     ],
     placeholder: 'Scrivi qui la tua risposta...',
+    emailPlaceholder: 'tuaemail@esempio.it',
     submitBtn: 'Invia le risposte →',
     successTitle: 'Grazie mille!',
     successText: 'Le tue risposte ci aiutano a costruire la piattaforma giusta per i sitter. Ti terremo aggiornato sul lancio a Milano.',
@@ -344,8 +356,9 @@ const translations = {
       '9. How much would you like to earn per hour?',
       '10. What would stop you from joining a platform like Zampoo?',
       '11. Is there anything you\'d want from a platform like Zampoo that you haven\'t found elsewhere?',
+      'If you\'re not on the waitlist yet, leave us your email to be among the first to try it',
     ],
-    qHints: ['You can select multiple answers', 'You can select multiple answers', 'You can select multiple answers', 'You can select multiple answers'],
+    qHints: ['You can select multiple answers', 'You can select multiple answers', 'You can select multiple answers', 'You can select multiple answers', 'Optional — write freely', 'Optional'],
     options: [
       ['University student', 'Employed', 'Freelance / self-employed', 'Looking for work', 'Other'],
       ['18 – 25', '26 – 35', '36 – 45', '46 – 55', 'Over 55'],
@@ -359,6 +372,7 @@ const translations = {
       ['I don\'t want to go through identity verification', 'I don\'t trust online payments', 'I\'d rather work independently', 'The platform commission worries me', 'Nothing — I\'d sign up right away'],
     ],
     placeholder: 'Write your answer here...',
+    emailPlaceholder: 'youremail@example.com',
     submitBtn: 'Submit answers →',
     successTitle: 'Thank you!',
     successText: 'Your answers help us build the right platform for sitters. We\'ll keep you updated on the Milan launch.',
@@ -401,6 +415,9 @@ function applyLang(lang) {
 
   const textarea = document.querySelector('textarea');
   if (textarea) textarea.placeholder = t.placeholder;
+
+  const emailInput = document.querySelector('.email-input');
+  if (emailInput) emailInput.placeholder = t.emailPlaceholder;
 
   const btn = document.getElementById('submitBtn');
   if (btn) btn.textContent = t.submitBtn;

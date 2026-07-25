@@ -34,6 +34,9 @@ body{font-family:'DM Sans',sans-serif;background:#FAF7F2;color:#1A1A18;min-heigh
 textarea{width:100%;padding:12px 14px;border:1.5px solid #E8E0D4;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1A1A18;background:#FAF7F2;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;}
 textarea:focus{border-color:#0D5C46;}
 textarea::placeholder{color:#B4B2A9;}
+.email-input{width:100%;padding:12px 14px;border:1.5px solid #E8E0D4;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1A1A18;background:#FAF7F2;outline:none;transition:border-color .15s;}
+.email-input:focus{border-color:#0D5C46;}
+.email-input::placeholder{color:#B4B2A9;}
 .submit-btn{width:100%;background:#0D5C46;color:#fff;border:none;border-radius:12px;padding:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:background .15s;margin-top:8px;}
 .submit-btn:hover{background:#1A7A5E;}
 .submit-btn:disabled{background:#B4B2A9;cursor:not-allowed;}
@@ -190,6 +193,12 @@ textarea::placeholder{color:#B4B2A9;}
         <div class="q-hint">Facoltativa — scrivi liberamente</div>
         <textarea name="q10" placeholder="Es. preferirei incontrare il sitter di persona prima..."></textarea>
       </div>
+
+      <div class="question">
+        <div class="q-text">Se non sei ancora in waitlist, lasciaci la tua mail per essere tra i primi a provarlo</div>
+        <div class="q-hint">Facoltativo</div>
+        <input type="email" name="email" class="email-input" placeholder="tuaemail@esempio.it">
+      </div>
     </div>
 
     <button type="submit" class="submit-btn" id="submitBtn">Invia le risposte →</button>
@@ -262,6 +271,7 @@ document.getElementById('mainForm').addEventListener('submit', async (e) => {
     'Q9 - Disponibilita prezzo': getRadio('q8'),
     'Q10 - Funzioni desiderate': getCheckboxes('q9'),
     'Q11 - Dubbi su Zampoo': document.querySelector('[name="q10"]').value,
+    'Email': document.querySelector('[name="email"]').value,
     'Data': new Date().toISOString().split('T')[0],
   };
 
@@ -303,8 +313,9 @@ const translations = {
       '9. Quanto hai pagato / quanto pagheresti un dog sitter per ora?',
       '10. Quali funzioni ti farebbero scegliere Zampoo?',
       '11. C\'è qualcosa che non ti convince di un servizio come Zampoo?',
+      'Se non sei ancora in waitlist, lasciaci la tua mail per essere tra i primi a provarlo',
     ],
-    qHints: ['Puoi selezionare più risposte', 'Puoi selezionare più risposte', 'Puoi selezionare più risposte'],
+    qHints: ['Puoi selezionare più risposte', 'Puoi selezionare più risposte', 'Facoltativa — scrivi liberamente', 'Facoltativo'],
     options: [
       ['1 cane', '2 cani', '3 o più'],
       ['18 – 25', '26 – 35', '36 – 45', '46 – 55', 'Oltre 55'],
@@ -318,6 +329,7 @@ const translations = {
       ['Profili verificati con documento', 'GPS tracking in tempo reale', 'Prenotazione e pagamento in app', 'Assicurazione inclusa', 'Disponibilità anche last minute'],
     ],
     placeholder: 'Scrivi qui la tua risposta...',
+    emailPlaceholder: 'tuaemail@esempio.it',
     submitBtn: 'Invia le risposte →',
     successTitle: 'Grazie mille!',
     successText: 'Le tue risposte ci aiutano a costruire Zampoo meglio, ogni giorno. Ti terremo aggiornato sul lancio a Milano.',
@@ -341,8 +353,9 @@ const translations = {
       '9. How much have you paid / how much would you pay a dog sitter per hour?',
       '10. Which features would make you choose Zampoo?',
       '11. Is there anything about a service like Zampoo that doesn\'t convince you?',
+      'If you\'re not on the waitlist yet, leave us your email to be among the first to try it',
     ],
-    qHints: ['You can select multiple answers', 'You can select multiple answers', 'You can select multiple answers'],
+    qHints: ['You can select multiple answers', 'You can select multiple answers', 'Optional — write freely', 'Optional'],
     options: [
       ['1 dog', '2 dogs', '3 or more'],
       ['18 – 25', '26 – 35', '36 – 45', '46 – 55', 'Over 55'],
@@ -356,6 +369,7 @@ const translations = {
       ['Verified profiles with ID', 'Real-time GPS tracking', 'Booking and payment in-app', 'Insurance included', 'Last-minute availability'],
     ],
     placeholder: 'Write your answer here...',
+    emailPlaceholder: 'youremail@example.com',
     submitBtn: 'Submit answers →',
     successTitle: 'Thank you!',
     successText: 'Your answers help us build Zampoo better every day. We\'ll keep you updated on the Milan launch.',
@@ -406,6 +420,10 @@ function applyLang(lang) {
   // Textarea placeholder
   const textarea = document.querySelector('textarea');
   if (textarea) textarea.placeholder = t.placeholder;
+
+  // Email placeholder
+  const emailInput = document.querySelector('.email-input');
+  if (emailInput) emailInput.placeholder = t.emailPlaceholder;
 
   // Submit button
   const btn = document.getElementById('submitBtn');
