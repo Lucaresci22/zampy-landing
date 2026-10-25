@@ -68,7 +68,7 @@ textarea::placeholder{color:#B4B2A9;}
 
   <div class="hero">
     <div class="hero-title" id="hero-title">Vuoi fare il <span>dog sitter?</span></div>
-    <div class="hero-text" id="hero-text">Ciao! Stiamo costruendo Zampoo, un'app che connette dog sitter con proprietari di cani a Milano. Rispondi a queste 10 domande — ci vuole meno di 3 minuti e ci aiuta a costruire la piattaforma giusta per te.</div>
+    <div class="hero-text" id="hero-text">Ciao! Stiamo costruendo Zampoo, un'app che connette dog sitter con proprietari di cani a Milano. Rispondi a queste 10 domande, più una facoltativa — ci vuole meno di 3 minuti e ci aiuta a costruire la piattaforma giusta per te.</div>
   </div>
 
   <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
@@ -244,13 +244,10 @@ document.querySelectorAll('.opt').forEach(opt => {
 });
 
 function updateProgress() {
-  const total = 9;
+  const names = ['q1','q_eta','q2','q3','q4','q5','q6','q7','q8','q9'];
   let answered = 0;
-  for (let i = 1; i <= 9; i++) {
-    const inputs = document.querySelectorAll(`[name="q${i}"]:checked`);
-    if (inputs.length > 0) answered++;
-  }
-  document.getElementById('progressBar').style.width = (answered / total * 100) + '%';
+  names.forEach(n => { if (document.querySelector(`[name="${n}"]:checked`)) answered++; });
+  document.getElementById('progressBar').style.width = (answered / names.length * 100) + '%';
 }
 
 document.getElementById('mainForm').addEventListener('submit', async (e) => {
@@ -307,7 +304,7 @@ const translations = {
     headerSub: 'Guadagna con i cani — Milano',
     langBtn: '🇬🇧 EN',
     heroTitle: 'Vuoi fare il <span>dog sitter?</span>',
-    heroText: 'Ciao! Stiamo costruendo Zampoo, un\'app che connette dog sitter con proprietari di cani a Milano. Rispondi a queste domande — ci vuole meno di 3 minuti e ci aiuta a costruire la piattaforma giusta per te.',
+    heroText: 'Ciao! Stiamo costruendo Zampoo, un\'app che connette dog sitter con proprietari di cani a Milano. Rispondi a queste 10 domande, più una facoltativa — ci vuole meno di 3 minuti e ci aiuta a costruire la piattaforma giusta per te.',
     sections: ['La tua situazione', 'La tua disponibilità', 'Motivazioni e aspettative'],
     questions: [
       '1. Qual è la tua situazione attuale?',
@@ -346,7 +343,7 @@ const translations = {
     headerSub: 'Earn money with dogs — Milan',
     langBtn: '🇮🇹 IT',
     heroTitle: 'Want to be a <span>dog sitter?</span>',
-    heroText: 'Hi! We\'re building Zampoo, an app connecting dog sitters with dog owners in Milan. Answer these questions — it takes less than 3 minutes and helps us build the right platform for you.',
+    heroText: 'Hi! We\'re building Zampoo, an app connecting dog sitters with dog owners in Milan. Answer these 10 questions, plus one optional — it takes less than 3 minutes and helps us build the right platform for you.',
     sections: ['Your situation', 'Your availability', 'Motivations and expectations'],
     questions: [
       '1. What is your current situation?',
