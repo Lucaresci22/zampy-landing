@@ -202,6 +202,7 @@ textarea::placeholder{color:#B4B2A9;}
         <div class="q-text">Se non sei ancora in waitlist, lasciaci la tua mail per essere tra i primi a provarlo</div>
         <div class="q-hint">Facoltativo</div>
         <input type="email" name="email" class="email-input" placeholder="tuaemail@esempio.it">
+        <input type="text" id="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       </div>
     </div>
 
@@ -222,9 +223,7 @@ textarea::placeholder{color:#B4B2A9;}
 </div>
 
 <script>
-const AT_TOKEN = 'patk857wG5E2P1BSQ.58000a8d2bb517b27f7640feefb18e692273facc139c781fc71930d191176db7';
-const AT_BASE = 'appEALY9tdwCVXbSC';
-const AT_TABLE = 'Interview Sitter';
+const API_URL = '/api/submit'; // il token Airtable è custodito da Cloudflare, non dal sito
 
 document.querySelectorAll('.opt').forEach(opt => {
   opt.querySelector('input').addEventListener('change', () => {
@@ -280,10 +279,10 @@ document.getElementById('mainForm').addEventListener('submit', async (e) => {
   };
 
   try {
-    const res = await fetch(`https://api.airtable.com/v0/${AT_BASE}/${encodeURIComponent(AT_TABLE)}`, {
+    const res = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Authorization': `Bearer ${AT_TOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fields })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'sitter', website: (document.getElementById('website') || {}).value || '', fields })
     });
     if (!res.ok) throw new Error('API error');
     document.getElementById('mainForm').style.display = 'none';

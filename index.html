@@ -341,6 +341,7 @@
       <div class="form-hint" id="hero-hint">Entra in lista per trovare il sitter perfetto al lancio.</div>
       <div class="input-row">
         <input class="Zampoo-input" type="email" id="hero-email" placeholder="La tua email" autocomplete="email"/>
+        <input type="text" id="hero-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <button class="Zampoo-submit" id="hero-submit" onclick="handleSubmit('hero')">Iscriviti →</button>
       </div>
       <div class="error-msg" id="hero-error">Qualcosa è andato storto. Riprova tra qualche istante.</div>
@@ -587,6 +588,7 @@
     <div class="form-hint" id="final-hint" style="text-align:center;margin-bottom:12px;">Entra in lista per trovare il sitter perfetto al lancio.</div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <input class="Zampoo-input" type="email" id="final-email" placeholder="La tua email" autocomplete="email"/>
+        <input type="text" id="final-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <button class="Zampoo-submit" id="final-submit" onclick="handleSubmit('final')" style="width:100%;">Entra nella lista d'attesa →</button>
     </div>
     <div class="error-msg" id="final-error">Qualcosa è andato storto. Riprova tra qualche istante.</div>
@@ -611,12 +613,10 @@
 
 <script>
 // ═══════════════════════════════════════════════════════
-//  CONFIG AIRTABLE — modifica solo queste 3 righe
-//  Istruzioni complete nel README del repository GitHub
+//  I dati vengono inviati a /api/submit (Cloudflare Pages Function).
+//  Il token Airtable è un segreto di Cloudflare, non sta più nel sito.
 // ═══════════════════════════════════════════════════════
-const AT_TOKEN = 'patk857wG5E2P1BSQ.58000a8d2bb517b27f7640feefb18e692273facc139c781fc71930d191176db7';
-const AT_BASE  = 'appEALY9tdwCVXbSC';
-const AT_TABLE = 'Iscritti';
+const API_URL = '/api/submit';
 // ═══════════════════════════════════════════════════════
 
 function openContacts() {
@@ -693,20 +693,13 @@ async function handleSubmit(form) {
   submitEl.disabled = true;
   submitEl.textContent = 'Invio…';
 
-  const isConfigured = AT_TOKEN !== 'INCOLLA_QUI_IL_TOKEN' && AT_BASE !== 'INCOLLA_QUI_IL_BASE_ID';
-
-  if (!isConfigured) {
-    // DEMO MODE — mostra successo senza salvare
-    console.log('[Zampoo] Demo mode — dati:', { email, ruolo: roles[form] === 'owner' ? 'Proprietario' : 'Dog Sitter' });
-    setTimeout(() => showSuccess(form, emailEl, submitEl, successEl, hintEl), 700);
-    return;
-  }
-
   try {
-    const res = await fetchWithRetry(`https://api.airtable.com/v0/${AT_BASE}/${encodeURIComponent(AT_TABLE)}`, {
+    const res = await fetchWithRetry(API_URL, {
       method: 'POST',
-      headers: { 'Authorization': `Bearer ${AT_TOKEN}`, 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        type: 'waitlist',
+        website: (document.getElementById(`${form}-website`) || {}).value || '',
         fields: {
           Email: email,
           Ruolo: roles[form] === 'owner' ? 'Proprietario' : 'Dog Sitter',
@@ -714,7 +707,7 @@ async function handleSubmit(form) {
         }
       })
     });
-    if (!res.ok) throw new Error((await res.json()).error?.message || 'Errore API');
+    if (!res.ok) throw new Error('Errore API');
     showSuccess(form, emailEl, submitEl, successEl, hintEl);
   } catch (err) {
     console.error('[Zampoo]', err);
