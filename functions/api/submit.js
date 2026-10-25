@@ -111,7 +111,7 @@ export async function onRequestPost({ request, env }) {
 }
 
 // Qualsiasi altro metodo su /api/submit
-xport async function onRequest({ env }) {
+export async function onRequest({ env }) {
   return json({ ok: false, error: 'method', configured: !!env.AIRTABLE_TOKEN }, 405);
 }
 }
